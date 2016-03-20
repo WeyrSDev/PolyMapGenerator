@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25115.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolyMapGenerator", "PolyMapGenerator\PolyMapGenerator.vcxproj", "{755489A7-45DF-4A95-93F0-A2320B23A041}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolyMapGeneratorTest", "PolyMapGeneratorTest\PolyMapGeneratorTest.vcxproj", "{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DiskSampling", "DiskSampling\DiskSampling.vcxproj", "{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{755489A7-45DF-4A95-93F0-A2320B23A041}.Release|x64.Build.0 = Release|x64
 		{755489A7-45DF-4A95-93F0-A2320B23A041}.Release|x86.ActiveCfg = Release|Win32
 		{755489A7-45DF-4A95-93F0-A2320B23A041}.Release|x86.Build.0 = Release|Win32
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Debug|x64.ActiveCfg = Debug|x64
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Debug|x64.Build.0 = Debug|x64
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Debug|x86.ActiveCfg = Debug|Win32
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Debug|x86.Build.0 = Debug|Win32
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Release|x64.ActiveCfg = Release|x64
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Release|x64.Build.0 = Release|x64
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Release|x86.ActiveCfg = Release|Win32
+		{400114E7-3B34-4820-A7D9-E5FB4FB0DFB4}.Release|x86.Build.0 = Release|Win32
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Debug|x64.ActiveCfg = Debug|x64
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Debug|x64.Build.0 = Debug|x64
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Debug|x86.ActiveCfg = Debug|Win32
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Debug|x86.Build.0 = Debug|Win32
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Release|x64.ActiveCfg = Release|x64
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Release|x64.Build.0 = Release|x64
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Release|x86.ActiveCfg = Release|Win32
+		{4B68AB8B-6B01-4EB1-9279-3BDBA6EAA551}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
