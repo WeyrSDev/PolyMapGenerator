@@ -59,7 +59,7 @@ public:
 	};
 
 private:
-	std::vector<std::vector<std::unique_ptr<Point>>> m_grid;
+	std::vector<std::vector<std::shared_ptr<Point>>> m_grid;
 	std::vector<Point> m_process;
 	std::vector<std::pair<double, double>> m_sample;
 
@@ -74,7 +74,7 @@ private:
 	Point GeneratePointAround(Point p);
 	bool IsInRectangle(Point p);
 	bool IsInNeighbourhood(Point p);
-	std::vector<std::unique_ptr<Point>> GetCellsAround(Point p);
+	std::vector<std::shared_ptr<Point>> GetCellsAround(Point p);
 };
 
 #endif
