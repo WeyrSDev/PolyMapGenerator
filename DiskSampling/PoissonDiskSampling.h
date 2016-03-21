@@ -2,6 +2,7 @@
 #define POISSON_DISK_SAMPLING_H
 
 #include <vector>
+#include <memory>
 
 class PoissonDiskSampling
 {
@@ -56,6 +57,24 @@ public:
 
 		double x, y;
 	};
+
+private:
+	std::vector<std::vector<std::unique_ptr<Point>>> m_grid;
+	std::vector<Point> m_process;
+	std::vector<std::pair<double, double>> m_sample;
+
+	int m_width;
+	int m_height;
+	double m_minDist;
+	int m_pointCount;
+	double m_cellSize;
+	int m_gridWidth;
+	int m_gridHeight;
+
+	Point GeneratePointAround(Point p);
+	bool IsInRectangle(Point p);
+	bool IsInNeighbourhood(Point p);
+	std::vector<std::unique_ptr<Point>> GetCellsAround(Point p);
 };
 
 #endif
