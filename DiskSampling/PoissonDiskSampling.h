@@ -55,6 +55,19 @@ public:
 			return *this;
 		}
 
+		int GetGridIndex(double cellSize, int mapWidth) const
+		{
+			int indexX = x / cellSize;
+			int indexY = y / cellSize;
+
+			return indexX + indexY * mapWidth;
+		}
+
+		double Distance(Point p) const
+		{
+			return sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y));
+		}
+
 		double x, y;
 	};
 
