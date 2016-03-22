@@ -30,6 +30,24 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 
 	while (!m_process.empty())
 	{
-		
+		int newPointIndex = gen() / m_process.size();
+		Point newPoint = m_process[newPointIndex];
+		m_process.erase(m_process.begin() + newPointIndex);
+
+		for (int i = 0; i < m_pointCount; ++i)
+		{
+			Point newPointAround = GeneratePointAround(newPoint);
+
+			if (IsInRectangle(newPointAround) && !IsInNeighbourhood(newPointAround))
+			{
+				m_process.push_back(newPointAround);
+				m_sample.push_back(std::make_pair(newPointAround.x, newPointAround.y));
+				int newPointX = newPointAround.x / m_cellSize;
+				int newPointY = newPointAround.y / m_cellSize;
+				m_grid[newPointX][newPointY] = std::make_shared<Point>(newPointAround);
+			}
+		}
 	}
+
+	return m_sample;
 }
