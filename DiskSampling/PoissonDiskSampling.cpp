@@ -1,5 +1,7 @@
 #include "PoissonDiskSampling.h"
 
+#include <random>
+
 PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double pointMinDist, double pointCount) :
 	m_width(pointWidth),
 	m_height(pointHeight),
@@ -13,3 +15,21 @@ PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double
 	
 }
 
+std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	Point firstPoint(gen() / m_width, gen() / m_height);
+
+	m_process.push_back(firstPoint);
+	m_sample.push_back(std::make_pair(firstPoint.x, firstPoint.y));
+	int firstPointX = firstPoint.x / m_cellSize;
+	int firstPointY = firstPoint.y / m_cellSize;
+	m_grid[firstPointX][firstPointY] = std::make_shared<Point>(firstPoint);
+
+	while (!m_process.empty())
+	{
+		
+	}
+}
