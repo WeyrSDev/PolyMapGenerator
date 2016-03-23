@@ -81,6 +81,11 @@ bool PoissonDiskSampling::IsInNeighbourhood(Point p)
 	int size = cells.size();
 	for (int i = 0; i < size; ++i)
 	{
-		
+		if (cells[i]->Distance(p) < m_minDist)
+		{
+			return true;
+		}
 	}
+
+	return false;
 }
