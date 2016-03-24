@@ -6,8 +6,8 @@ Generation of procedural maps. The main idea behind the algorithm is taken from 
 
 It has the following steps:
 
-* Place a number of random but uniformly distributed points (using Poisson Disk Sampling).
-* Calculate the Voronoi diagran of the points.
+* Place a number of random but uniformly distributed points (using Poisson Disk Sampling). \[Done!\]
+* Calculate the Voronoi diagram of the points. \[Doing...\]
 * Using Perlin Noise determine which cells are land and which are water.
 * Calculate the elevation of each point as its distance to the sea. Normalize all the heights.
 * Place river sources in random spots and let them flow downwards.
