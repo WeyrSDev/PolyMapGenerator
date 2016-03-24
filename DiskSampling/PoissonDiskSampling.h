@@ -34,7 +34,7 @@ public:
 		{
 			if (this == &rhs)
 			{
-				return;
+				return *this;
 			}
 
 			x = rhs.x;
@@ -46,7 +46,7 @@ public:
 		{
 			if (this == &rhs)
 			{
-				return;
+				return *this;
 			}
 
 			x = rhs.x;
