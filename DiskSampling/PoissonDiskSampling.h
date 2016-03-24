@@ -84,8 +84,8 @@ private:
 	int m_gridWidth;
 	int m_gridHeight;
 
-	Point GeneratePointAround(Point p);
-	bool IsInRectangle(Point p);
+	Point GeneratePointAround(Point p) const;
+	bool IsInRectangle(Point p) const;
 	bool IsInNeighbourhood(Point p);
 	std::vector<std::shared_ptr<Point>> GetCellsAround(Point p);
 };

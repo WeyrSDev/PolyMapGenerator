@@ -53,7 +53,7 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 	return m_sample;
 }
 
-PoissonDiskSampling::Point PoissonDiskSampling::GeneratePointAround(Point p)
+PoissonDiskSampling::Point PoissonDiskSampling::GeneratePointAround(Point p) const
 {
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -71,7 +71,7 @@ PoissonDiskSampling::Point PoissonDiskSampling::GeneratePointAround(Point p)
 	return Point(newX, newY);
 }
 
-bool PoissonDiskSampling::IsInRectangle(Point p)
+bool PoissonDiskSampling::IsInRectangle(Point p) const
 {
 	return (p.x >= 0 && p.y >= 0 && p.x < m_width && p.y < m_height);
 }
