@@ -1,6 +1,7 @@
 #include "PoissonDiskSampling.h"
 
 #include <random>
+#include <algorithm>
 
 PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double pointMinDist, double pointCount) :
 	m_width(pointWidth),
@@ -88,4 +89,31 @@ bool PoissonDiskSampling::IsInNeighbourhood(Point p)
 	}
 
 	return false;
+}
+
+std::vector<std::shared_ptr<PoissonDiskSampling::Point>> PoissonDiskSampling::GetCellsAround(Point p)
+{
+	std::vector<std::shared_ptr<Point>> cells;
+
+	int indexX = p.x / m_cellSize;
+	int indexY = p.y / m_cellSize;
+
+	int minX = std::max(0, indexX - 1);
+	int maxX = std::min(m_gridWidth - 1, indexX - 1);
+
+	int minY = std::max(0, indexY - 1);
+	int maxY = std::min(m_gridHeight - 1, indexY - 1);
+
+	for (int i = minX; i <= maxX; ++i)
+	{
+		for (int j = minY; j <= maxY; ++j)
+		{
+			if (m_grid[i][j] != nullptr)
+			{
+				cells.push_back(m_grid[i][j]);
+			}
+		}
+	}
+
+	return cells;
 }
