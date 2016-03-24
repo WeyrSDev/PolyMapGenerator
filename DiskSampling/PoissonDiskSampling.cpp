@@ -7,10 +7,10 @@ PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double
 	m_width(pointWidth),
 	m_height(pointHeight),
 	m_minDist(pointMinDist),
-	m_pointCount(pointCount),
+	m_pointCount(static_cast<int>(pointCount)),
 	m_cellSize(m_minDist / 1.414214),
-	m_gridWidth(ceil(m_width / m_cellSize)),
-	m_gridHeight(ceil(m_height / m_cellSize)),
+	m_gridWidth(static_cast<int>(ceil(m_width / m_cellSize))),
+	m_gridHeight(static_cast<int>(ceil(m_height / m_cellSize))),
 	m_grid(std::vector<std::vector<std::shared_ptr<Point>>>(m_gridWidth, std::vector<std::shared_ptr<Point>>(m_gridHeight, nullptr)))
 {
 	
@@ -25,8 +25,8 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 
 	m_process.push_back(firstPoint);
 	m_sample.push_back(std::make_pair(firstPoint.x, firstPoint.y));
-	int firstPointX = firstPoint.x / m_cellSize;
-	int firstPointY = firstPoint.y / m_cellSize;
+	int firstPointX = static_cast<int>(firstPoint.x / m_cellSize);
+	int firstPointY = static_cast<int>(firstPoint.y / m_cellSize);
 	m_grid[firstPointX][firstPointY] = std::make_shared<Point>(firstPoint);
 
 	while (!m_process.empty())
@@ -43,8 +43,8 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 			{
 				m_process.push_back(newPointAround);
 				m_sample.push_back(std::make_pair(newPointAround.x, newPointAround.y));
-				int newPointX = newPointAround.x / m_cellSize;
-				int newPointY = newPointAround.y / m_cellSize;
+				int newPointX = static_cast<int>(newPointAround.x / m_cellSize);
+				int newPointY = static_cast<int>(newPointAround.y / m_cellSize);
 				m_grid[newPointX][newPointY] = std::make_shared<Point>(newPointAround);
 			}
 		}
@@ -95,8 +95,8 @@ std::vector<std::shared_ptr<PoissonDiskSampling::Point>> PoissonDiskSampling::Ge
 {
 	std::vector<std::shared_ptr<Point>> cells;
 
-	int indexX = p.x / m_cellSize;
-	int indexY = p.y / m_cellSize;
+	int indexX = static_cast<int>(p.x / m_cellSize);
+	int indexY = static_cast<int>(p.y / m_cellSize);
 
 	int minX = std::max(0, indexX - 1);
 	int maxX = std::min(m_gridWidth - 1, indexX - 1);

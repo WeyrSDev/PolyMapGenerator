@@ -57,8 +57,8 @@ public:
 
 		int GetGridIndex(double cellSize, int mapWidth) const
 		{
-			int indexX = x / cellSize;
-			int indexY = y / cellSize;
+			int indexX = static_cast<int>(x / cellSize);
+			int indexY = static_cast<int>(y / cellSize);
 
 			return indexX + indexY * mapWidth;
 		}
