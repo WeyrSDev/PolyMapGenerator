@@ -29,6 +29,22 @@ public:
 
 	bool operator==(const Vector2& v) const;
 	bool operator!=(const Vector2& v) const;
+
+	void Normalize();
+	void Reflect(const Vector2& v);
+	void Reverse();
+	void Truncate(double maxLength);
+
+	void RotateByDegree(double degree);
+	void RotateByRadian(double radian);
+
+	double DotProduct(const Vector2& v) const;
+	double CrossProduct(const Vector2& v) const;
+
+	double Distance(const Vector2& v) const;
+	double DistanceSqrt(const Vector2& v) const;
+
+	bool Sign(const Vector2& v) const;
 };
 
 #endif
