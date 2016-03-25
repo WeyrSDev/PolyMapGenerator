@@ -61,4 +61,9 @@ private:
 	void Copy(const Vector2& v);
 };
 
+Vector2 operator+(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator/(const Vector2& lhs, const Vector2& rhs);
+
 #endif
