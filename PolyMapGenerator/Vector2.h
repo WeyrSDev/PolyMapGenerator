@@ -16,6 +16,19 @@ public:
 
 	Vector2& operator=(const Vector2& v);
 	Vector2& operator=(Vector2&& v);
+
+	Vector2& operator+=(const Vector2& v);
+	Vector2& operator+=(const double f);
+
+	Vector2& operator-=(const Vector2& v);
+	Vector2& operator-=(const double f);
+
+	Vector2& operator*=(const double f);
+
+	Vector2& operator/=(const double f);
+
+	bool operator==(const Vector2& v) const;
+	bool operator!=(const Vector2& v) const;
 };
 
 #endif
