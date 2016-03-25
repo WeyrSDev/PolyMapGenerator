@@ -41,10 +41,24 @@ public:
 	double DotProduct(const Vector2& v) const;
 	double CrossProduct(const Vector2& v) const;
 
+	double Length() const;
+	double LengthSqrt() const;
+
 	double Distance(const Vector2& v) const;
 	double DistanceSqrt(const Vector2& v) const;
 
+	double GetAngleByDegree() const;
+	double GetAngleByDegree(const Vector2& v) const;
+	double GetAngleByRadian() const;
+	double GetAngleByRadian(const Vector2& v) const;
+
 	bool Sign(const Vector2& v) const;
+	bool IsZero() const;
+
+	double x, y;
+
+private:
+	void Copy(const Vector2& v);
 };
 
 #endif
