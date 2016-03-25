@@ -66,4 +66,14 @@ Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
 Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
 Vector2 operator/(const Vector2& lhs, const Vector2& rhs);
 
+Vector2 Normalize(const Vector2& v);
+Vector2 Reflect(const Vector2& v1, const Vector2& v2);
+Vector2 Reverse(const Vector2& v);
+Vector2 Truncate(const Vector2& v, double maxLength);
+
+Vector2 RotateByDegree(const Vector2& v, double degree);
+Vector2 RotateByRadian(const Vector2& v, double radian);
+
+double Distance(const Vector2& v1, const Vector2& v2);
+
 #endif
