@@ -142,7 +142,7 @@ bool Vector2::operator==(const Vector2& v) const
 	double diffX = abs(x - v.x);
 	double diffY = abs(y - v.y);
 
-	return (diffX < EQ_THRESHOLD) && (diffY < EQ_THRESHOLD);
+	return diffX < EQ_THRESHOLD && diffY < EQ_THRESHOLD;
 }
 
 bool Vector2::operator!=(const Vector2& v) const
