@@ -20,28 +20,28 @@ Vector2::Vector2() :
 	x(0.0),
 	y(0.0)
 {
-	
+
 }
 
 Vector2::Vector2(double angle) :
 	x(cos(angle * M_PI / 180)),
 	y(sin(angle * M_PI / 180))
 {
-	
+
 }
 
 Vector2::Vector2(double _x, double _y) :
 	x(_x),
 	y(_y)
 {
-	
+
 }
 
 Vector2::Vector2(const Vector2& v1, const Vector2& v2) :
 	x(v2.x - v1.x),
 	y(v2.y - v1.y)
 {
-	
+
 }
 
 Vector2::~Vector2()
@@ -60,7 +60,7 @@ Vector2::Vector2(Vector2&& v) :
 	x(v.x),
 	y(v.y)
 {
-	
+
 }
 
 Vector2& Vector2::operator=(const Vector2& v)
@@ -87,4 +87,65 @@ Vector2& Vector2::operator=(Vector2&& v)
 	y = v.y;
 
 	return *this;
+}
+
+Vector2& Vector2::operator+=(const Vector2& v)
+{
+	x += v.x;
+	y += v.y;
+
+	return *this;
+}
+
+Vector2& Vector2::operator+=(const double f)
+{
+	x += f;
+	y += f;
+
+	return *this;
+}
+
+Vector2& Vector2::operator-=(const Vector2& v)
+{
+	x -= v.x;
+	y -= v.y;
+
+	return *this;
+}
+
+Vector2& Vector2::operator-=(const double f)
+{
+	x -= f;
+	y -= f;
+
+	return *this;
+}
+
+Vector2& Vector2::operator*=(const double f)
+{
+	x *= f;
+	y *= f;
+
+	return *this;
+}
+
+Vector2& Vector2::operator/=(const double f)
+{
+	x /= f;
+	y /= f;
+
+	return *this;
+}
+
+bool Vector2::operator==(const Vector2& v) const
+{
+	double diffX = abs(x - v.x);
+	double diffY = abs(y - v.y);
+
+	return (diffX < EQ_THRESHOLD) && (diffY < EQ_THRESHOLD);
+}
+
+bool Vector2::operator!=(const Vector2& v) const
+{
+	return !(*this == v);
 }
