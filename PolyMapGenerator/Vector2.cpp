@@ -43,3 +43,8 @@ Vector2::Vector2(const Vector2& v1, const Vector2& v2) :
 {
 	
 }
+
+Vector2::~Vector2()
+{
+
+}
