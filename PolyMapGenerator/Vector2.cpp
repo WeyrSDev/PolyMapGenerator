@@ -149,3 +149,48 @@ bool Vector2::operator!=(const Vector2& v) const
 {
 	return !(*this == v);
 }
+
+void Vector2::Normalize()
+{
+	double mod = Length();
+
+	if (mod > 0)
+	{
+		x /= mod;
+		y /= mod;
+	}
+}
+
+void Vector2::Reflect(const Vector2& v)
+{
+	*this += 2.0 * DotProduct(v) * Vector2(v.x * -1, v.y * -1);
+}
+
+void Vector2::Reverse()
+{
+	x *= -1;
+	y *= -1;
+}
+
+void Vector2::Truncate(double maxLength)
+{
+	if (Length() > maxLength)
+	{
+		Normalize();
+		*this *= maxLength;
+	}
+}
+
+void Vector2::RotateByDegree(double degree)
+{
+	RotateByRadian(degree * M_PI / 180);
+}
+
+void Vector2::RotateByRadian(double radian)
+{
+	double newX = x * cos(radian) - y * sin(radian);
+	double newY = x * sin(radian) + y * cos(radian);
+
+	x = newX;
+	y = newY;
+}
