@@ -194,3 +194,13 @@ void Vector2::RotateByRadian(double radian)
 	x = newX;
 	y = newY;
 }
+
+double Vector2::DotProduct(const Vector2& v) const
+{
+	return x * v.x + y * v.y;
+}
+
+double Vector2::CrossProduct(const Vector2& v) const
+{
+	return x * v.y - v.x * y;
+}
