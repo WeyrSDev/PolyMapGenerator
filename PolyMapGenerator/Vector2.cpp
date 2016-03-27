@@ -63,3 +63,28 @@ Vector2::Vector2(Vector2&& v) :
 	
 }
 
+Vector2& Vector2::operator=(const Vector2& v)
+{
+	if (&v == this)
+	{
+		return *this;
+	}
+
+	x = v.x;
+	y = v.y;
+
+	return *this;
+}
+
+Vector2& Vector2::operator=(Vector2&& v)
+{
+	if (&v == this)
+	{
+		return *this;
+	}
+
+	x = v.x;
+	y = v.y;
+
+	return *this;
+}
