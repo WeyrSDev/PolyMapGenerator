@@ -306,3 +306,51 @@ Vector2 operator/(const Vector2& lhs, const double fac)
 
 	return aux;
 }
+
+Vector2 Normalize(const Vector2& v) {
+	Vector2 aux(v);
+	aux.Normalize();
+
+	return aux;
+}
+
+Vector2 Reflect(const Vector2& v1, const Vector2& v2) {
+	Vector2 aux(v1);
+	aux.Reflect(v2);
+
+	return aux;
+}
+
+Vector2 Reverse(const Vector2& v) {
+	Vector2 aux(v);
+	aux.Reverse();
+
+	return aux;
+}
+
+Vector2 Truncate(const Vector2& v, double maxLength) {
+	Vector2 aux(v);
+	aux.Truncate(maxLength);
+
+	return aux;
+}
+
+Vector2 RotateByDegree(const Vector2& v, double degree) {
+	Vector2 aux(v);
+	aux.RotateByDegree(degree);
+
+	return aux;
+}
+
+Vector2 RotateByRadian(const Vector2& v, double radian) {
+	Vector2 aux(v);
+	aux.RotateByRadian(radian);
+
+	return aux;
+}
+
+double Distance(const Vector2& v1, const Vector2& v2) {
+	Vector2 aux(v1, v2);
+
+	return aux.Length();
+}
