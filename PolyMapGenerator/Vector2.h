@@ -61,7 +61,8 @@ public:
 Vector2 operator+(const Vector2& lhs, const Vector2& rhs);
 Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
 Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
-Vector2 operator/(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator*(const Vector2& lhs, const double fac);
+Vector2 operator/(const Vector2& lhs, const double fac);
 
 Vector2 Normalize(const Vector2& v);
 Vector2 Reflect(const Vector2& v1, const Vector2& v2);
