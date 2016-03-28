@@ -270,39 +270,39 @@ bool Vector2::IsZero() const
 
 Vector2 operator+(const Vector2& lhs, const Vector2& rhs)
 {
-	Vector2 result(lhs);
-	result += rhs;
+	Vector2 aux(lhs);
+	aux += rhs;
 
-	return result;
+	return aux;
 }
 
 Vector2 operator-(const Vector2& lhs, const Vector2& rhs)
 {
-	Vector2 result(lhs);
-	result -= rhs;
+	Vector2 aux(lhs);
+	aux -= rhs;
 
-	return result;
+	return aux;
 }
 
 Vector2 operator*(const double fac, const Vector2& rhs)
 {
-	Vector2 result(rhs);
-	result *= fac;
+	Vector2 aux(rhs);
+	aux *= fac;
 
-	return result;
+	return aux;
 }
 Vector2 operator*(const Vector2& lhs, const double fac)
 {
-	Vector2 result(lhs);
-	result *= fac;
+	Vector2 aux(lhs);
+	aux *= fac;
 
-	return result;
+	return aux;
 }
 
 Vector2 operator/(const Vector2& lhs, const double fac)
 {
-	Vector2 result(lhs);
-	result /= fac;
+	Vector2 aux(lhs);
+	aux /= fac;
 
-	return result;
+	return aux;
 }
