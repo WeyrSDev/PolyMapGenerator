@@ -267,3 +267,42 @@ bool Vector2::IsZero() const
 {
 	return x == 0 && y == 0;
 }
+
+Vector2 operator+(const Vector2& lhs, const Vector2& rhs)
+{
+	Vector2 result(lhs);
+	result += rhs;
+
+	return result;
+}
+
+Vector2 operator-(const Vector2& lhs, const Vector2& rhs)
+{
+	Vector2 result(lhs);
+	result -= rhs;
+
+	return result;
+}
+
+Vector2 operator*(const double fac, const Vector2& rhs)
+{
+	Vector2 result(rhs);
+	result *= fac;
+
+	return result;
+}
+Vector2 operator*(const Vector2& lhs, const double fac)
+{
+	Vector2 result(lhs);
+	result *= fac;
+
+	return result;
+}
+
+Vector2 operator/(const Vector2& lhs, const double fac)
+{
+	Vector2 result(lhs);
+	result /= fac;
+
+	return result;
+}
