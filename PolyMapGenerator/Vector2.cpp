@@ -204,3 +204,13 @@ double Vector2::CrossProduct(const Vector2& v) const
 {
 	return x * v.y - v.x * y;
 }
+
+double Vector2::Length() const
+{
+	return sqrt(x * x + y * y);
+}
+
+double Vector2::LengthSqrt() const
+{
+	return x * x + y * y;
+}
