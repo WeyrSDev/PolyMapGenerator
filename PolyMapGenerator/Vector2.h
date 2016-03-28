@@ -60,7 +60,7 @@ public:
 
 Vector2 operator+(const Vector2& lhs, const Vector2& rhs);
 Vector2 operator-(const Vector2& lhs, const Vector2& rhs);
-Vector2 operator*(const Vector2& lhs, const Vector2& rhs);
+Vector2 operator*(const double fac, const Vector2& rhs);
 Vector2 operator*(const Vector2& lhs, const double fac);
 Vector2 operator/(const Vector2& lhs, const double fac);
 
