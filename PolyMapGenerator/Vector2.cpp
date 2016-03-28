@@ -226,3 +226,13 @@ double Vector2::DistanceSqrt(const Vector2& v) const
 	Vector2 dist(*this, v);
 	return dist.LengthSqrt();
 }
+
+double Vector2::GetAngleByDegree() const
+{
+	return GetAngleByRadian() * 180 / M_PI;
+}
+
+double Vector2::GetAngleByDegree(const Vector2& v) const
+{
+	return GetAngleByRadian(v) * 180 / M_PI;
+}
