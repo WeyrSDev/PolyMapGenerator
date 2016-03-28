@@ -257,3 +257,13 @@ double Vector2::GetAngleByRadian(const Vector2& v) const
 	double angle = atan2(v.y - y, v.x - x);
 	return angle;
 }
+
+bool Vector2::Sign(const Vector2& v) const
+{
+	return x * v.y > v.x * y;
+}
+
+bool Vector2::IsZero() const
+{
+	return x == 0 && y == 0;
+}
