@@ -236,3 +236,24 @@ double Vector2::GetAngleByDegree(const Vector2& v) const
 {
 	return GetAngleByRadian(v) * 180 / M_PI;
 }
+
+double Vector2::GetAngleByRadian() const
+{
+	if (IsZero())
+	{
+		return 0;
+	}
+
+	return atan2(y, x);
+}
+
+double Vector2::GetAngleByRadian(const Vector2& v) const
+{
+	if (IsZero() || v.IsZero())
+	{
+		return 0;
+	}
+
+	double angle = atan2(v.y - y, v.x - x);
+	return angle;
+}
