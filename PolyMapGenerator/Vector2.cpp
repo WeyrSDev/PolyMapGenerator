@@ -214,3 +214,15 @@ double Vector2::LengthSqrt() const
 {
 	return x * x + y * y;
 }
+
+double Vector2::Distance(const Vector2& v) const
+{
+	Vector2 dist(*this, v);
+	return dist.Length();
+}
+
+double Vector2::DistanceSqrt(const Vector2& v) const
+{
+	Vector2 dist(*this, v);
+	return dist.LengthSqrt();
+}
