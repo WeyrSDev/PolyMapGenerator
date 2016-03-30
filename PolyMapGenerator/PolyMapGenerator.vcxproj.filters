@@ -18,6 +18,9 @@
     <ClInclude Include="Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LineEquation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2.cpp">
