@@ -7,7 +7,7 @@ class LineEquation
 {
 public:
 	LineEquation();
-	LineEquation(Vector2 a, Vector2 b);
+	LineEquation(Vector2 p1, Vector2 p2);
 	LineEquation(Vector2 p, double m);
 	
 	~LineEquation();
