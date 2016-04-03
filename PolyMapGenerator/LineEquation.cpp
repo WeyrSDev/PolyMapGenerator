@@ -89,3 +89,8 @@ LineEquation& LineEquation::operator=(LineEquation&& e)
 
 	return *this;
 }
+
+double LineEquation::operator()(const double x) const
+{
+	return x * m + b;
+}
