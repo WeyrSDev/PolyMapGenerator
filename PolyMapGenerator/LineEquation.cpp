@@ -94,3 +94,81 @@ double LineEquation::operator()(const double x) const
 {
 	return x * m + b;
 }
+
+void LineEquation::Move(const Vector2 v)
+{
+	Vector2 p0, p1;
+
+	if (vertical)
+	{
+		p0 = Vector2(b, 0);
+		p1 = Vector2(b, 1);
+	}
+	else
+	{
+		p0 = Vector2(0, b);
+		p1 = Vector2(1, m + b);
+	}
+
+	p0 += Vector2(v.x, v.y);
+	p1 += Vector2(v.x, v.y);
+
+	*this = LineEquation(p0, p1);
+}
+
+Vector2 LineEquation::Intersection(LineEquation& e) const
+{
+	double x, y;
+
+	if (m != e.m)
+	{
+		if (vertical)
+		{
+			x = b;
+			y = e(x);
+		}
+		else if (e.vertical)
+		{
+			x = e.b;
+			y = x * m + b;
+		}
+		else
+		{
+			x = (e.b - b) / (m - e.m);
+			y = e(x);
+		}
+	}
+	else
+	{
+		if (vertical == e.vertical)
+		{
+			x = 0.0;
+			y = 0.0;
+		}
+		else
+		{
+			if (vertical)
+			{
+				x = b;
+				y = e.b;
+			}
+			else
+			{
+				x = e.b;
+				y = b;
+			}
+		}
+	}
+
+	return Vector2(x, y);
+}
+
+bool LineEquation::IsHorizontal() const
+{
+	return !vertical && m == 0;
+}
+
+bool LineEquation::IsVertical() const
+{
+	return vertical;
+}
