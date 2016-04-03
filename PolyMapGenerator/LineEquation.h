@@ -22,8 +22,8 @@ public:
 
 	void Move(const Vector2 v);
 	Vector2 Intersection(LineEquation& e) const;
-	bool IsHorizontal();
-	bool IsVertical();
+	bool IsHorizontal() const;
+	bool IsVertical() const;
 
 	double m;
 	double b;
