@@ -18,7 +18,7 @@ public:
 	LineEquation& operator=(const LineEquation& e);
 	LineEquation& operator=(LineEquation&& e);
 
-	double operator()(const double x);
+	double operator()(const double x) const;
 
 	void Move(const Vector2 v);
 	Vector2 Intersection(LineEquation& e) const;
