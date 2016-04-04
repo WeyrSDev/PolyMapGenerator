@@ -1,6 +1,8 @@
 #ifndef DELAUNAY_TRIANGULATION_H
 #define DELAUNAY_TRIANGULATION_H
 
+#include <set>
+
 namespace DelaunayTriangulation
 {
 	struct Point
@@ -111,6 +113,10 @@ namespace DelaunayTriangulation
 	private:
 		Point m_point;
 	};
+
+	using VertexSet = std::set<Vertex>;
+	using VertexIterator = std::set<Vertex>::iterator;
+	using cVertexIterator = std::set<Vertex>::const_iterator;
 }
 
 #endif
