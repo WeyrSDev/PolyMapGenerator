@@ -89,7 +89,24 @@ namespace DelaunayTriangulation
 			return *this;
 		}
 
+		bool operator==(const Vertex& v) const
+		{
+			return m_point.x == v.m_point.x && m_point.y == v.m_point.y;
+		}
 
+		bool operator<(const Vertex& v) const
+		{
+			if (m_point.x == v.m_point.x) return m_point.y < v.m_point.y;
+			return m_point.x < v.m_point.x;
+		}
+
+		double GetX() const { return m_point.x; }
+		double GetY() const { return m_point.y; }
+
+		void SetX(double x) { m_point.x = x; }
+		void SetY(double y) { m_point.y = y; }
+
+		const Point& GetPoint() const { return m_point; }
 
 	private:
 		Point m_point;
