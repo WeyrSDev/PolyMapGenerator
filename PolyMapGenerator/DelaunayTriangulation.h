@@ -2,6 +2,7 @@
 #define DELAUNAY_TRIANGULATION_H
 
 #include <set>
+#include <memory>
 
 namespace DelaunayTriangulation
 {
@@ -117,6 +118,29 @@ namespace DelaunayTriangulation
 	using VertexSet = std::set<Vertex>;
 	using VertexIterator = std::set<Vertex>::iterator;
 	using cVertexIterator = std::set<Vertex>::const_iterator;
+
+	class Triangle
+	{
+	public:
+		Triangle() : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0) { }
+		Triangle(
+			std::unique_ptr<Vertex> p0,
+			std::unique_ptr<Vertex> p1,
+			std::unique_ptr<Vertex> p2)
+		{
+			m_vertices[0] = move(p0);
+			m_vertices[1] = move(p1);
+			m_vertices[2] = move(p2);
+
+			SetCircumstanceCircle();
+		}
+	
+	private:
+		std::unique_ptr<Vertex> m_vertices[3];
+		Point m_center;
+		double m_r;
+		double m_rSquare;
+	}
 }
 
 #endif
