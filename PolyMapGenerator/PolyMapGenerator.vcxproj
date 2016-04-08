@@ -112,6 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="LineEquation.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
