@@ -205,6 +205,42 @@ namespace DelaunayTriangulation
 	using TriangleSet = std::multiset<Triangle>;
 	using TriangleIterator = std::multiset<Triangle>::iterator;
 	using cTriangleIterator = std::multiset<Triangle>::const_iterator;
+
+	class Edge
+	{
+	public:
+		Edge() : m_pv0(nullptr), m_pv1(nullptr) { }
+		Edge(const Vertex* pv0, const Vertex* pv1) : m_pv0(pv0), m_pv1(pv1) { }
+
+		~Edge()
+		{
+			m_pv0 = nullptr;
+			m_pv1 = nullptr;
+		}
+
+		Edge(const Edge& e) : m_pv0(e.m_pv0), m_pv1(e.m_pv1) { }
+		Edge(Edge&& e) : m_pv0(e.m_pv0), m_pv1(e.m_pv1) { }
+
+		Edge& operator=(const Edge& e) = delete;
+		Edge& operator=(Edge&& e) = delete;
+
+		bool operator<(const Edge& e) const
+		{
+			if (*m_pv0 == *e.m_pv0)
+			{
+				return *m_pv1 < *e.m_pv1;
+			}
+
+			return *m_pv0 < *m_pv0;
+		}
+
+		const Vertex* m_pv0;
+		const Vertex* m_pv1;
+	};
+
+	using EdgeSet = std::set<Edge>;
+	using EdgeIterator = std::set<Edge>::iterator;
+	using cEdgeIterator = std::set<Edge>::const_iterator;
 }
 
 #endif
