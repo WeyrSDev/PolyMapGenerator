@@ -6,6 +6,8 @@
 
 namespace DelaunayTriangulation
 {
+	const double EPSILON = 1.192092896e-07F;
+
 	struct Point
 	{
 		Point() : x(0.0), y(0.0) { }
