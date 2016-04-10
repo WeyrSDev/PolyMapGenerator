@@ -117,6 +117,7 @@
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DelaunayTriangulation.cpp" />
     <ClCompile Include="LineEquation.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>

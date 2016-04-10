@@ -21,12 +21,18 @@
     <ClInclude Include="LineEquation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DelaunayTriangulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LineEquation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DelaunayTriangulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
