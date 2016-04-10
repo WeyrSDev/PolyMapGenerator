@@ -2,7 +2,7 @@
 #define DELAUNAY_TRIANGULATION_H
 
 #include <set>
-#include <memory>
+#include <cassert>
 
 namespace DelaunayTriangulation
 {
@@ -123,24 +123,88 @@ namespace DelaunayTriangulation
 	{
 	public:
 		Triangle() : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0) { }
-		Triangle(
-			std::unique_ptr<Vertex> p0,
-			std::unique_ptr<Vertex> p1,
-			std::unique_ptr<Vertex> p2)
+		Triangle(Vertex* p0, Vertex* p1, Vertex* p2) : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0)
 		{
-			m_vertices[0] = move(p0);
-			m_vertices[1] = move(p1);
-			m_vertices[2] = move(p2);
+			m_vertices[0] = p0;
+			m_vertices[1] = p1;
+			m_vertices[2] = p2;
 
 			SetCircumstanceCircle();
 		}
+
+		~Triangle()
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				m_vertices[i] = nullptr;
+			}
+
+			m_center = Point(0.0, 0.0);
+			m_r = 0.0;
+			m_rSquare = 0.0;
+		}
+
+		Triangle(const Triangle& tri) : m_center(tri.m_center), m_r(tri.m_r), m_rSquare(tri.m_rSquare)
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				m_vertices[i] = tri.m_vertices[i];
+			}
+		}
+		Triangle(Triangle&& tri) : m_center(tri.m_center), m_r(tri.m_r), m_rSquare(tri.m_rSquare)
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				m_vertices[i] = std::move(tri.m_vertices[i]);
+			}
+		}
+
+		Triangle& operator=(const Triangle& tri) = delete;
+		Triangle& operator=(Triangle&& tri) = delete;
+
+		bool operator<(const Triangle& tri) const
+		{
+			if (m_center.x == tri.m_center.x)
+			{
+				return m_center.y < tri.m_center.y;
+			}
+
+			return m_center.x < m_center.y;
+		}
+
+		const Vertex* GetVertex(int i) const
+		{
+			assert(i >= 0);
+			assert(i < 3);
+
+			return m_vertices[i];
+		}
+
+		bool IsLeftOf(cVertexIterator iterVertex) const
+		{
+			return iterVertex->GetPoint().x > m_center.x + m_r;
+		}
+
+		bool CCEncompasses(cVertexIterator iterVertex) const
+		{
+			Point dist = iterVertex->GetPoint() - m_center;
+			double distSquare = dist.x * dist.x + dist.y * dist.y;
+
+			return distSquare <= m_rSquare;
+		}
 	
 	private:
-		std::unique_ptr<Vertex> m_vertices[3];
+		Vertex* m_vertices[3];
 		Point m_center;
 		double m_r;
 		double m_rSquare;
-	}
+
+		void SetCircumstanceCircle();
+	};
+
+	using TriangleSet = std::multiset<Triangle>;
+	using TriangleIterator = std::multiset<Triangle>::iterator;
+	using cTriangleIterator = std::multiset<Triangle>::const_iterator;
 }
 
 #endif
