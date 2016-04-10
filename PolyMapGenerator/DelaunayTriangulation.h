@@ -241,6 +241,16 @@ namespace DelaunayTriangulation
 	using EdgeSet = std::set<Edge>;
 	using EdgeIterator = std::set<Edge>::iterator;
 	using cEdgeIterator = std::set<Edge>::const_iterator;
+
+	class Delaunay
+	{
+	public:
+		void Triangulate(const VertexSet& vertices, TriangleSet& output);
+		void TrianglesToEdges(const TriangleSet& triangles, EdgeSet& edges);
+
+	private:
+		void HandleEdge(const Vertex* p0, const Vertex* p1, EdgeSet& edges);
+	};
 }
 
 #endif
