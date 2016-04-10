@@ -11,7 +11,7 @@ PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double
 	m_cellSize(m_minDist / 1.414214),
 	m_gridWidth(static_cast<int>(ceil(m_width / m_cellSize))),
 	m_gridHeight(static_cast<int>(ceil(m_height / m_cellSize))),
-	m_grid(std::vector<std::vector<std::shared_ptr<Point>>>(m_gridWidth, std::vector<std::shared_ptr<Point>>(m_gridHeight, nullptr)))
+	m_grid(std::vector<std::vector<Point*>>(m_gridWidth, std::vector<Point*>(m_gridHeight, nullptr)))
 {
 	
 }
@@ -27,7 +27,7 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 	m_sample.push_back(std::make_pair(firstPoint.x, firstPoint.y));
 	int firstPointX = static_cast<int>(firstPoint.x / m_cellSize);
 	int firstPointY = static_cast<int>(firstPoint.y / m_cellSize);
-	m_grid[firstPointX][firstPointY] = std::make_shared<Point>(firstPoint);
+	m_grid[firstPointX][firstPointY] = new Point(firstPoint);
 
 	while (!m_process.empty())
 	{
@@ -45,7 +45,7 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 				m_sample.push_back(std::make_pair(newPointAround.x, newPointAround.y));
 				int newPointX = static_cast<int>(newPointAround.x / m_cellSize);
 				int newPointY = static_cast<int>(newPointAround.y / m_cellSize);
-				m_grid[newPointX][newPointY] = std::make_shared<Point>(newPointAround);
+				m_grid[newPointX][newPointY] = new Point(newPointAround);
 			}
 		}
 	}
@@ -78,7 +78,7 @@ bool PoissonDiskSampling::IsInRectangle(Point p) const
 
 bool PoissonDiskSampling::IsInNeighbourhood(Point p)
 {
-	std::vector<std::shared_ptr<Point>> cells = GetCellsAround(p);
+	std::vector<Point*> cells = GetCellsAround(p);
 	int size = cells.size();
 	for (int i = 0; i < size; ++i)
 	{
@@ -91,9 +91,9 @@ bool PoissonDiskSampling::IsInNeighbourhood(Point p)
 	return false;
 }
 
-std::vector<std::shared_ptr<PoissonDiskSampling::Point>> PoissonDiskSampling::GetCellsAround(Point p)
+std::vector<PoissonDiskSampling::Point*> PoissonDiskSampling::GetCellsAround(Point p)
 {
-	std::vector<std::shared_ptr<Point>> cells;
+	std::vector<Point*> cells;
 
 	int indexX = static_cast<int>(p.x / m_cellSize);
 	int indexY = static_cast<int>(p.y / m_cellSize);
