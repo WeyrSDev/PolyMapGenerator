@@ -304,4 +304,23 @@ namespace DelaunayTriangulation
 			HandleEdge(iter->GetVertex(2), iter->GetVertex(0), edges);
 		}
 	}
+
+	void Delaunay::HandleEdge(const Vertex* p0, const Vertex* p1, EdgeSet& edges)
+	{
+		const Vertex* pv0(nullptr);
+		const Vertex* pv1(nullptr);
+
+		if (*p0 < *p1)
+		{
+			pv0 = p0;
+			pv1 = p1;
+		}
+		else
+		{
+			pv0 = p1;
+			pv1 = p0;
+		}
+
+		edges.insert(Edge(pv0, pv1));
+	}
 }
