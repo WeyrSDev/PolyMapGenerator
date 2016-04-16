@@ -55,7 +55,35 @@ namespace DelaunayTriangulation
 		}
 		else if (b21zero)
 		{
-			
+			double m0 = -(x1 - x0) / y10;
+
+			double mx0 = (x0 + x1) * 0.5;
+			double my0 = (y0 + y1) * 0.5;
+
+			m_center.x = (x1 + x2) * 0.5;
+			m_center.y = m0 * (m_center.x - mx0) + my0;
 		}
+		else
+		{
+			double m0 = -(x1 - x0) / y10;
+			double m1 = -(x2 - x1) / y21;
+
+			double mx0 = (x0 + x1) * 0.5;
+			double my0 = (y0 + y1) * 0.5;
+
+			double mx1 = (x1 + x2) * 0.5;
+			double my1 = (y1 + y2) * 0.5;
+
+			m_center.x = (m0 * mx0 - m1 * mx1 + my1 - my0) / (m0 - m1);
+			m_center.y = m0 * (m_center.x - mx0) + my0;
+		}
+
+		double dx = x0 - m_center.x;
+		double dy = y0 - m_center.y;
+
+		m_rSquare = dx * dx + dy * dy;
+		m_r = static_cast<double>(sqrt(m_rSquare));
+
+		m_rSquare *= 1.000001;
 	}
 }
