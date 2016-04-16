@@ -109,4 +109,31 @@ namespace DelaunayTriangulation
 	private:
 		const Vertex* m_pSuperTriangle;
 	};
+
+	class TriangleIsCompleted
+	{
+	public:
+		TriangleIsCompleted(cVertexIterator iterVertex, TriangleSet& output, const Vertex superTriangle[3]) :
+			m_iterVertex(iterVertex), m_output(output), m_pSuperTriangle(superTriangle) { }
+
+		bool operator()(const Triangle& tri) const
+		{
+			bool b = tri.IsLeftOf(m_iterVertex);
+			if (b)
+			{
+				TriangleHasVertex thv(m_pSuperTriangle);
+				if (!thv(tri))
+				{
+					m_output.insert(tri);
+				}
+			}
+
+			return b;
+		}
+
+	private:
+		cVertexIterator m_iterVertex;
+		TriangleSet& m_output;
+		const Vertex* m_pSuperTriangle;
+	};
 }
