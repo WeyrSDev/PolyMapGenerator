@@ -190,4 +190,108 @@ namespace DelaunayTriangulation
 		cVertexIterator m_iterVertex;
 		EdgeSet& m_edges;
 	};
+
+	void Delaunay::Triangulate(const VertexSet& vertices, TriangleSet& output)
+	{
+		if (vertices.size() < 3)
+		{
+			return;
+		}
+
+		cVertexIterator iterVertex = vertices.begin();
+
+		double xMin = iterVertex->GetX();
+		double yMin = iterVertex->GetY();
+		double xMax = xMin;
+		double yMax = yMin;
+
+		++iterVertex;
+
+		for (; iterVertex != vertices.end(); ++iterVertex)
+		{
+			xMax = iterVertex->GetX();
+			double y = iterVertex->GetY();
+
+			if (y < yMin)
+			{
+				yMin = y;
+			}
+			if (y > yMax)
+			{
+				yMax = y;
+			}
+		}
+
+		double dx = xMax - xMin;
+		double dy = yMax - yMin;
+
+		double ddx = dx * 0.01;
+		double ddy = dy * 0.01;
+
+		xMin -= ddx;
+		xMax += ddx;
+		dx += 2 * ddx;
+
+		yMin -= ddy;
+		yMax += ddy;
+		dy += 2 * ddy;
+
+		Vertex vSuper[3];
+		vSuper[0] = Vertex(xMin - dy * sqrt3 / 3.0, yMin);
+		vSuper[1] = Vertex(xMax + dy * sqrt3 / 3.0, yMin);
+		vSuper[2] = Vertex((xMin + xMax) * 0.5, yMax + dx * sqrt3 * 0.5);
+
+		TriangleSet workset;
+		workset.insert(Triangle(vSuper));
+
+		for (iterVertex = vertices.begin(); iterVertex != vertices.end(); ++iterVertex)
+		{
+			TriangleIsCompleted pred1(iterVertex, output, vSuper);
+			TriangleSet::iterator iter = workset.begin();
+
+			while (iter != workset.end())
+			{
+				if (pred1(*iter))
+				{
+					iter = workset.erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
+			}
+
+			EdgeSet edges;
+
+			VertexIsInCircumstanceCircle pred2(iterVertex, edges);
+			iter = workset.begin();
+
+			while (iter != workset.end())
+			{
+				if (pred2(*iter))
+				{
+					iter = workset.erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
+			}
+
+			for (EdgeIterator edgeIter = edges.begin(); edgeIter != edges.end(); ++edgeIter)
+			{
+				workset.insert(Triangle(edgeIter->m_pv0, edgeIter->m_pv1, &(*iterVertex)));
+			}
+		}
+
+		TriangleIterator where = output.begin();
+		TriangleHasVertex pred(vSuper);
+		for (auto t : workset)
+		{
+			if (!pred(t))
+			{
+				output.insert(output.begin(), t);
+			}
+		}
+	}
 }
