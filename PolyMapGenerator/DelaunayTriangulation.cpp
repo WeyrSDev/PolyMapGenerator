@@ -86,4 +86,27 @@ namespace DelaunayTriangulation
 
 		m_rSquare *= 1.000001;
 	}
+
+	class TriangleHasVertex
+	{
+	public:
+		TriangleHasVertex(const Vertex superTriangle[3]) : m_pSuperTriangle(superTriangle) { }
+
+		bool operator()(const Triangle& tri) const
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				const Vertex* p = tri.GetVertex(i);
+				if (p >= m_pSuperTriangle && p < m_pSuperTriangle + 3)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+	private:
+		const Vertex* m_pSuperTriangle;
+	};
 }
