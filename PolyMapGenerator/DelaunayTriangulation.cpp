@@ -136,4 +136,58 @@ namespace DelaunayTriangulation
 		TriangleSet& m_output;
 		const Vertex* m_pSuperTriangle;
 	};
+
+	class VertexIsInCircumstanceCircle
+	{
+	public:
+		VertexIsInCircumstanceCircle(cVertexIterator iterVertex, EdgeSet& edges) :
+			m_iterVertex(iterVertex), m_edges(edges) { }
+		
+		bool operator()(const Triangle& tri) const
+		{
+			bool b = tri.CCEncompasses(m_iterVertex);
+			
+			if (b)
+			{
+				HandleEdge(tri.GetVertex(0), tri.GetVertex(1));
+				HandleEdge(tri.GetVertex(1), tri.GetVertex(2));
+				HandleEdge(tri.GetVertex(2), tri.GetVertex(0));
+			}
+
+			return b;
+		}
+
+	private:
+		void HandleEdge(const Vertex* p0, const Vertex* p1) const
+		{
+			const Vertex* pVertex0(nullptr);
+			const Vertex* pVertex1(nullptr);
+
+			if (*p0 < *p1)
+			{
+				pVertex0 = p0;
+				pVertex1 = p1;
+			}
+			else
+			{
+				pVertex0 = p1;
+				pVertex1 = p0;
+			}
+
+			Edge e(pVertex0, pVertex1);
+			EdgeIterator isFound = m_edges.find(e);
+
+			if (isFound == m_edges.end())
+			{
+				m_edges.insert(e);
+			}
+			else
+			{
+				m_edges.erase(isFound);
+			}
+		}
+
+		cVertexIterator m_iterVertex;
+		EdgeSet& m_edges;
+	};
 }
