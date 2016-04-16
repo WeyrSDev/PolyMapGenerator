@@ -133,6 +133,15 @@ namespace DelaunayTriangulation
 
 			SetCircumstanceCircle();
 		}
+		Triangle(const Vertex* pVertex)
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				m_vertices[i] = pVertex++;
+			}
+
+			SetCircumstanceCircle();
+		}
 
 		~Triangle()
 		{
@@ -196,7 +205,7 @@ namespace DelaunayTriangulation
 		}
 	
 	private:
-		Vertex* m_vertices[3];
+		const Vertex* m_vertices[3];
 		Point m_center;
 		double m_r;
 		double m_rSquare;
