@@ -294,4 +294,14 @@ namespace DelaunayTriangulation
 			}
 		}
 	}
+
+	void Delaunay::TrianglesToEdges(const TriangleSet& triangles, EdgeSet& edges)
+	{
+		for (cTriangleIterator iter = triangles.begin(); iter != triangles.end(); ++iter)
+		{
+			HandleEdge(iter->GetVertex(0), iter->GetVertex(1), edges);
+			HandleEdge(iter->GetVertex(1), iter->GetVertex(2), edges);
+			HandleEdge(iter->GetVertex(2), iter->GetVertex(0), edges);
+		}
+	}
 }
