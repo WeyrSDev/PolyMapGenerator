@@ -2,7 +2,7 @@
 
 namespace DelaunayTriangulation
 {
-	const double sqtr3 = 1.732050808;
+	const double sqrt3 = 1.732050808;
 
 	void Triangle::SetCircumstanceCircle()
 	{
