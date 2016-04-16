@@ -125,7 +125,7 @@ namespace DelaunayTriangulation
 	{
 	public:
 		Triangle() : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0) { }
-		Triangle(Vertex* p0, Vertex* p1, Vertex* p2) : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0)
+		Triangle(const Vertex* p0, const Vertex* p1, const Vertex* p2) : m_center(0.0, 0.0), m_r(0.0), m_rSquare(0.0)
 		{
 			m_vertices[0] = p0;
 			m_vertices[1] = p1;
