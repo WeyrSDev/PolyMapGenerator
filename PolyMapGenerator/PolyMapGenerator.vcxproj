@@ -76,6 +76,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="LineEquation.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
