@@ -116,7 +116,7 @@
     <ClInclude Include="DelaunayTriangulation.h" />
     <ClInclude Include="Math\LineEquation.h" />
     <ClInclude Include="Math\Vector2.h" />
-    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="QuadTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DelaunayTriangulation.cpp" />

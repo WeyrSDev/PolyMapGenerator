@@ -21,10 +21,10 @@
     <ClInclude Include="Math\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Quadtree.h">
+    <ClInclude Include="Math\LineEquation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\LineEquation.h">
+    <ClInclude Include="QuadTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
