@@ -114,14 +114,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DelaunayTriangulation.h" />
-    <ClInclude Include="LineEquation.h" />
+    <ClInclude Include="Math\LineEquation.h" />
+    <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DelaunayTriangulation.cpp" />
-    <ClCompile Include="LineEquation.cpp" />
-    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Math\LineEquation.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
