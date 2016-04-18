@@ -58,4 +58,22 @@ private:
 template <typename T>
 int QuadTree<T>::MAX_TREE_DEPTH = 6;
 
+// Axis-Aligned Bounding Box (AABB)
+struct AABB
+{
+	AABB() = default;
+	AABB(Vector2 pos, Vector2 half) : m_pos(pos), m_half(half) { }
+
+	~AABB() = default;
+
+	AABB(const AABB& aabb) = default;
+	AABB(AABB&& aabb) = default;
+
+	AABB& operator=(const AABB& aabb) = default;
+	AABB& operator=(AABB&& aabb) = default;
+
+	Vector2 m_pos;
+	Vector2 m_half;
+};
+
 #endif
