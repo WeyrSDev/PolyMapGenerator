@@ -72,6 +72,31 @@ struct AABB
 	AABB& operator=(const AABB& aabb) = default;
 	AABB& operator=(AABB&& aabb) = default;
 
+	bool IsContain(const Vector2 point) const
+	{
+		Vector2 minPoint = m_pos - m_half;
+		if (point.x >= minPoint.x && point.y >= minPoint.y)
+		{
+			Vector2 maxPoint = m_pos + m_half;
+			return point.x <= maxPoint.x && point.y <= maxPoint.y;
+		}
+
+		return false;
+	}
+
+	bool IsIntersect(const AABB& sec) const
+	{
+		double diffX = abs(m_pos.x - sec.m_pos.x);
+		double diffY = abs(m_pos.y - sec.m_pos.y);
+
+		if (diffX > m_half.x + sec.m_half.x || diffY > m_half.y + sec.m_half.y)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	Vector2 m_pos;
 	Vector2 m_half;
 };
