@@ -40,6 +40,8 @@ public:
 	AABB m_boundary;
 
 private:
+	static int MAX_TREE_DEPTH;
+
 	std::vector<T> m_elements;
 	std::vector<AABB> m_elementRegions;
 
@@ -52,5 +54,8 @@ private:
 	int m_branchDepth;
 	int m_elementsBranch;
 };
+
+template <typename T>
+int QuadTree<T>::MAX_TREE_DEPTH = 6;
 
 #endif
