@@ -37,6 +37,86 @@ public:
 	QuadTree& operator=(const QuadTree& qt) = delete;
 	QuadTree& operator=(QuadTree&& qt) = delete;
 
+	bool Insert(const T element, Vector2 pos)
+	{
+		if (!m_boundary.IsContain(pos))
+		{
+			return false;
+		}
+
+		if (!m_divided)
+		{
+			if (m_elements.size() < MAX_TREE_DEPTH)
+			{
+				m_elements.push_back(std::make_pair(element, pos));
+				return true;
+			}
+
+			Subdivide();
+		}
+
+		if (m_northWest->Insert(element, pos) || m_northEast->Insert(element, pos) ||
+			m_southEast->Insert(element, pos) || m_southWest->Insert(element, pos))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Insert(const T element, AABB range)
+	{
+		if (!m_boundary.IsIntersect(range))
+		{
+			return false;
+		}
+
+		if (!m_divided)
+		{
+			if (m_elements.size() < 4)
+			{
+				m_elements.push_back(std::make_pair(element, range));
+				return true;
+			}
+
+			Subdivide();
+		}
+
+		if (m_northWest->m_boundary.IsIntersect(range))
+		{
+			m_northWest->Insert(element, range);
+		}
+		if (m_northEast->m_boundary.IsIntersect(range))
+		{
+			m_northEast->Insert(element, range);
+		}
+		if (m_southEast->m_boundary.IsIntersect(range))
+		{
+			m_southEast->Insert(element, range);
+		}
+		if (m_southWest->m_boundary.IsIntersect(range))
+		{
+			m_southWest->Insert(element, range);
+		}
+
+		return true;
+	}
+
+	bool Insert2(const T element, AABB range)
+	{
+		
+	}
+
+	std::vector<T> QueryRange(Vector2 pos)
+	{
+		
+	}
+
+	static void SetMaxDepth(int d)
+	{
+		
+	}
+
 	AABB m_boundary;
 
 private:
