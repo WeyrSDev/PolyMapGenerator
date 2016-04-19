@@ -48,7 +48,7 @@ public:
 		{
 			if (m_elements.size() < MAX_TREE_DEPTH)
 			{
-				m_elements.push_back(std::make_pair(element, pos));
+				m_elements.emplace_back(std::make_pair(element, pos));
 				return true;
 			}
 
@@ -75,7 +75,7 @@ public:
 		{
 			if (m_elements.size() < 4)
 			{
-				m_elements.push_back(std::make_pair(element, range));
+				m_elements.emplace_back(std::make_pair(element, range));
 				return true;
 			}
 
@@ -113,8 +113,8 @@ public:
 
 		if (m_branchDepth == MAX_TREE_DEPTH)
 		{
-			m_elements.push_back(element);
-			m_elementsRegions.push_back(range);
+			m_elements.emplace_back(element);
+			m_elementsRegions.emplace_back(range);
 			return true;
 		}
 
@@ -177,7 +177,7 @@ public:
 		{
 			if (currentLeaf->m_elementsRegions[i].IsContain(pos))
 			{
-				elements.push_back(currentLeaf->m_elements[i]);
+				elements.emplace_back(currentLeaf->m_elements[i]);
 			}
 		}
 
