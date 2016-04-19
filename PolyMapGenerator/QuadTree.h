@@ -145,7 +145,43 @@ public:
 
 	std::vector<T> QueryRange(Vector2 pos)
 	{
-		
+		QuadTree* currentLeaf = this;
+
+		while (currentLeaf->m_divided)
+		{
+			if (currentLeaf->m_northWest->m_boundary.IsContain(pos))
+			{
+				currentLeaf = currentLeaf->m_northWest;
+			}
+			else if (currentLeaf->m_northEast->m_boundary.IsContain(pos))
+			{
+				currentLeaf = currentLeaf->m_northEast;
+			}
+			else if (currentLeaf->m_southEast->m_boundary.IsContain(pos))
+			{
+				currentLeaf = currentLeaf->m_southEast;
+			}
+			else if (currentLeaf->m_southWest->m_boundary.IsContain(pos))
+			{
+				currentLeaf = currentLeaf->m_southWest;
+			}
+			else
+			{
+				return std::vector<T>();
+			}
+		}
+
+		std::vector<T> elements;
+
+		for (int i = 0 ; i < currentLeaf->m_elements.size(); ++i)
+		{
+			if (currentLeaf->m_elementRegions[i].IsContain(pos))
+			{
+				elements.push_back(currentLeaf->m_elements[i]);
+			}
+		}
+
+		return elements;
 	}
 
 	static void SetMaxDepth(int d)
