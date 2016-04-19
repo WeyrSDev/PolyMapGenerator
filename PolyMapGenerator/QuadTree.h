@@ -186,12 +186,85 @@ public:
 
 	static void SetMaxDepth(int d)
 	{
-		
+		if (d > 0)
+		{
+			MAX_TREE_DEPTH = d;
+		}
 	}
 
 	AABB m_boundary;
 
 private:
+	void Subdivide()
+	{
+		m_divided = true;
+
+		Vector2 newHalf = m_boundary.m_half / 2;
+
+		Vector2 nwPos(m_boundary.m_pos - newHalf);
+		AABB northWest(nwPos, newHalf);
+		m_northWest = new QuadTree<T>(northWest, m_branchDepth + 1);
+
+		Vector2 nePos(nwPos.x + m_boundary.m_half.x, nwPos.y);
+		AABB northEast(nePos, newHalf);
+		m_northEast = new QuadTree<T>(northEast, m_branchDepth + 1);
+
+		Vector2 sePos(m_boundary.m_pos + newHalf);
+		AABB southEast(sePos, newHalf);
+		m_southEast = new QuadTree<T>(southEast, m_branchDepth + 1);
+
+		Vector2 swPos(nwPos.x, nwPos.y + m_boundary.m_half.y);
+		AABB southWest(swPos, newHalf);
+		m_southWest = new QuadTree<T>(southWest, m_branchDepth + 1);
+
+		typename std::vector<std::pair<T, AABB>>::iterator iter;
+
+		for (iter = m_elements.begin(); iter != m_elements.end(); ++iter)
+		{
+			if (m_northWest->m_boundary.IsIntersect(iter->second))
+			{
+				m_northWest->Insert(iter->first, iter->second);
+			}
+			if (m_northEast->m_boundary.IsIntersect(iter->second))
+			{
+				m_northEast->Insert(iter->first, iter->second);
+			}
+			if (m_southEast->m_boundary.IsIntersect(iter->second))
+			{
+				m_southEast->Insert(iter->first, iter->second);
+			}
+			if (m_southWest->m_boundary.IsIntersect(iter->second))
+			{
+				m_southWest->Insert(iter->first, iter->second);
+			}
+		}
+
+		m_elements.clear();
+	}
+
+	void Subdivide2()
+	{
+		m_divided = true;
+
+		Vector2 newHalf = m_boundary.m_half / 2;
+
+		Vector2 nwPos(m_boundary.m_pos - newHalf);
+		AABB northWest(nwPos, newHalf);
+		m_northWest = new QuadTree<T>(northWest, m_branchDepth + 1);
+
+		Vector2 nePos(nwPos.x + m_boundary.m_half.x, nwPos.y);
+		AABB northEast(nePos, newHalf);
+		m_northEast = new QuadTree<T>(northEast, m_branchDepth + 1);
+
+		Vector2 sePos(m_boundary.m_pos + newHalf);
+		AABB southEast(sePos, newHalf);
+		m_southEast = new QuadTree<T>(southEast, m_branchDepth + 1);
+
+		Vector2 swPos(nwPos.x, nwPos.y + m_boundary.m_half.y);
+		AABB southWest(swPos, newHalf);
+		m_southWest = new QuadTree<T>(southWest, m_branchDepth + 1);
+	}
+
 	static int MAX_TREE_DEPTH;
 
 	std::vector<T> m_elements;
