@@ -104,7 +104,43 @@ public:
 
 	bool Insert2(const T element, AABB range)
 	{
-		
+		if (!m_boundary.IsIntersect(range))
+		{
+			return false;
+		}
+
+		m_elementsBranch++;
+
+		if (m_branchDepth == MAX_TREE_DEPTH)
+		{
+			m_elements.push_back(element);
+			m_elementRegions.push_back(range);
+			return true;
+		}
+
+		if (!m_divided)
+		{
+			SubDivide2();
+		}
+
+		if (m_northWest->m_boundary.IsIntersect(range))
+		{
+			m_northWest->Insert2(element, range);
+		}
+		if (m_northEast->m_boundary.IsIntersect(range))
+		{
+			m_northEast->Insert2(element, range);
+		}
+		if (m_southEast->m_boundary.IsIntersect(range))
+		{
+			m_southEast->Insert2(element, range);
+		}
+		if (m_southWest->m_boundary.IsIntersect(range))
+		{
+			m_southWest->Insert2(element, range);
+		}
+
+		return true;
 	}
 
 	std::vector<T> QueryRange(Vector2 pos)
