@@ -120,7 +120,7 @@ public:
 
 		if (!m_divided)
 		{
-			SubDivide2();
+			Subdivide2();
 		}
 
 		if (m_northWest->m_boundary.IsIntersect(range))
