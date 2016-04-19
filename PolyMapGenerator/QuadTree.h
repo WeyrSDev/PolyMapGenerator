@@ -114,7 +114,7 @@ public:
 		if (m_branchDepth == MAX_TREE_DEPTH)
 		{
 			m_elements.push_back(element);
-			m_elementRegions.push_back(range);
+			m_elementsRegions.push_back(range);
 			return true;
 		}
 
@@ -175,7 +175,7 @@ public:
 
 		for (int i = 0 ; i < currentLeaf->m_elements.size(); ++i)
 		{
-			if (currentLeaf->m_elementRegions[i].IsContain(pos))
+			if (currentLeaf->m_elementsRegions[i].IsContain(pos))
 			{
 				elements.push_back(currentLeaf->m_elements[i]);
 			}
@@ -268,7 +268,7 @@ private:
 	static int MAX_TREE_DEPTH;
 
 	std::vector<T> m_elements;
-	std::vector<AABB> m_elementRegions;
+	std::vector<AABB> m_elementsRegions;
 
 	QuadTree* m_northWest;
 	QuadTree* m_northEast;
