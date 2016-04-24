@@ -27,4 +27,8 @@ enum class BiomeType
 	None
 };
 
+// Forward Declaration
+struct Edge;
+struct Corner;
+
 #endif
