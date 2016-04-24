@@ -48,6 +48,16 @@ struct Center
 	Center& operator=(const Center& center) = default;
 	Center& operator=(Center&& center) = default;
 
+	bool RemoveEdge(Edge* e);
+	bool RemoveCorner(Corner* c);
+	Edge* GetEdgeWith(Center* c);
+	void MakeBorder();
+	bool IsInsideBoundingBox(int width, int height);
+	bool IsContain(Vector2 pos);
+	std::pair<Vector2, Vector2> GetBoundingBox();
+	void SortCorners();
+	bool IsGoesBefore(Vector2 a, Vector2 b);
+
 	unsigned int m_index;
 	Vector2 m_position;
 
