@@ -89,6 +89,12 @@ struct Edge
 	Edge& operator=(const Edge& center) = default;
 	Edge& operator=(Edge&& center) = default;
 
+	bool Legalize();
+	bool Flip();
+	void SwitchCorner(Corner* oldCorner, Corner* newCorner);
+	Corner* GetOppositeCorner(Corner* c);
+	Center* GetOppositeCenter(Center* c);
+
 	unsigned int m_index;
 
 	Center* m_d0;
