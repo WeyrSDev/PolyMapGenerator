@@ -34,7 +34,7 @@ struct Corner;
 struct Center
 {
 	unsigned int m_index;
-	Vector2 m_positon;
+	Vector2 m_position;
 
 	bool m_water;
 	bool m_ocean;
