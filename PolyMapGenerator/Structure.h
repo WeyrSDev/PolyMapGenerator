@@ -80,10 +80,10 @@ struct Edge
 {
 	unsigned int m_index;
 
-	Center* d0;
-	Center* d1;
-	Corner* v0;
-	Corner* v1;
+	Center* m_d0;
+	Center* m_d1;
+	Corner* m_v0;
+	Corner* m_v1;
 
 	Vector2 m_voronoiMidpoint;
 	double m_riverVolume;
