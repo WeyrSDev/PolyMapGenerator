@@ -40,6 +40,14 @@ struct Center
 		m_index(index), m_position(position), m_water(false), m_ocean(false), m_coast(false), m_border(false),
 		m_biome(BiomeType::None), m_elevation(0.0), m_moisture(0.0) { }
 
+	~Center() = default;
+
+	Center(const Center& center) = default;
+	Center(Center&& center) = default;
+
+	Center& operator=(const Center& center) = default;
+	Center& operator=(Center&& center) = default;
+
 	unsigned int m_index;
 	Vector2 m_position;
 
