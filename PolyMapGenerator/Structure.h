@@ -33,6 +33,13 @@ struct Corner;
 
 struct Center
 {
+	Center() :
+		m_index(0), m_position(0, 0), m_water(false), m_ocean(false), m_coast(false), m_border(false),
+		m_biome(BiomeType::None), m_elevation(0.0), m_moisture(0.0) { }
+	Center(unsigned int index, Vector2 position) :
+		m_index(index), m_position(position), m_water(false), m_ocean(false), m_coast(false), m_border(false),
+		m_biome(BiomeType::None), m_elevation(0.0), m_moisture(0.0) { }
+
 	unsigned int m_index;
 	Vector2 m_position;
 
