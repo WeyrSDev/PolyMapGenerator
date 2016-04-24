@@ -78,6 +78,17 @@ struct Center
 
 struct Edge
 {
+	Edge() : m_index(0), m_d0(nullptr), m_d1(nullptr), m_v0(nullptr), m_v1(nullptr), m_riverVolume(0.0) { }
+	Edge(unsigned int index, Center* center1, Center* center2, Corner* corner1, Corner* corner2);
+
+	~Edge() = default;
+
+	Edge(const Edge& center) = default;
+	Edge(Edge&& center) = default;
+
+	Edge& operator=(const Edge& center) = default;
+	Edge& operator=(Edge&& center) = default;
+
 	unsigned int m_index;
 
 	Center* m_d0;
