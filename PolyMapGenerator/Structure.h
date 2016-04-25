@@ -108,4 +108,25 @@ struct Edge
 	using EdgeIterator = std::vector<Edge*>::iterator;
 };
 
+struct Corner
+{
+	unsigned int m_index;
+	Vector2 m_position;
+
+	bool m_ocean;
+	bool m_water;
+	bool m_coast;
+	bool m_border;
+	double m_elevation;
+	double m_moisture;
+	double m_riverVolume;
+	Corner* m_downslope;
+
+	std::vector<Edge*> m_edges;
+	std::vector<Corner*> m_corners;
+	std::vector<Center*> m_centers;
+
+	using CornerIterator = std::vector<Corner*>::iterator;
+};
+
 #endif
