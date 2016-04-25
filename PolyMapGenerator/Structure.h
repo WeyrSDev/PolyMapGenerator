@@ -117,11 +117,24 @@ struct Corner
 		m_index(index), m_position(position), m_water(false), m_ocean(false), m_coast(false), m_border(false),
 		m_elevation(0.0), m_moisture(0.0), m_riverVolume(0.0), m_downslope(nullptr) { }
 
+	bool IsPointInCircumstanceCircle(Vector2 p);
+	Vector2 CalculateCircumstanceCenter();
+	Center* GetOppositeCenter(Center* c0, Center* c1);
+	void SwitchAdjacent(Corner* oldCorner, Corner* newCorner);
+	bool TouchesCenter(Center* c);
+	Edge* GetEdgeConnecting(Center* c0, Center* c1);
+	Center* GetOppositeCenter(Edge* e);
+	bool IsInsideBoundingBox(Corner* c);
+	Edge* GetEdgeWith(Corner* c);
+
+	static bool SortByElevation(Corner* c1, Corner* c2);
+	static bool SortByMoisture(Corner* c1, Corner* c2);
+
 	unsigned int m_index;
 	Vector2 m_position;
 
-	bool m_ocean;
 	bool m_water;
+	bool m_ocean;
 	bool m_coast;
 	bool m_border;
 	double m_elevation;
