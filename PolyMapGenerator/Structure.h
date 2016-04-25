@@ -110,6 +110,13 @@ struct Edge
 
 struct Corner
 {
+	Corner() :
+		m_index(0), m_position(0, 0), m_water(false), m_ocean(false), m_coast(false), m_border(false),
+		m_elevation(0.0), m_moisture(0.0), m_riverVolume(0.0), m_downslope(nullptr) { }
+	Corner(unsigned int index, Vector2 position) :
+		m_index(index), m_position(position), m_water(false), m_ocean(false), m_coast(false), m_border(false),
+		m_elevation(0.0), m_moisture(0.0), m_riverVolume(0.0), m_downslope(nullptr) { }
+
 	unsigned int m_index;
 	Vector2 m_position;
 
