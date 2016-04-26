@@ -130,5 +130,40 @@ std::pair<Vector2, Vector2> Center::GetBoundingBox()
 	return std::make_pair(minPos + halfDiagonal, halfDiagonal);
 }
 
-void SortCorners();
-bool IsGoesBefore(Vector2 a, Vector2 b);
+void Center::SortCorners()
+{
+	Corner* item = nullptr;
+	int hole = 0;
+
+	for (int i = 1; i < m_corners.size(); ++i)
+	{
+		item = m_corners[i];
+		hole = i;
+		
+		while (hole > 0 && IsGoesBefore(item->m_position, m_corners[hole - 1]->m_position))
+		{
+			m_corners[hole] = m_corners[hole - 1];
+			hole--;
+		}
+
+		m_corners[hole] = item;
+	}
+}
+
+bool Center::IsGoesBefore(Vector2 a, Vector2 b) const
+{
+	if ((a - m_position).x >= 0 && (b - m_position).x < 0)
+	{
+		return true;
+	}
+
+	if (a.x == 0 && b.x == 0)
+	{
+		return a.y < b.y;
+	}
+
+	Vector2 ca(m_position, a);
+	Vector2 cb(m_position, b);
+
+	return ca.CrossProduct(cb) > 0;
+}
