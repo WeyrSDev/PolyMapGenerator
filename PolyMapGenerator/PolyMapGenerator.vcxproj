@@ -123,6 +123,7 @@
     <ClCompile Include="DelaunayTriangulation.cpp" />
     <ClCompile Include="Math\LineEquation.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Structure.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
