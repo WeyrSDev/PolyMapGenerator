@@ -52,7 +52,7 @@ struct Center
 	bool RemoveCorner(Corner* c);
 	Edge* GetEdgeWith(Center* c);
 	void MakeBorder();
-	bool IsInsideBoundingBox(int width, int height);
+	bool IsInsideBoundingBox(int width, int height) const;
 	bool IsContain(Vector2 pos);
 	std::pair<Vector2, Vector2> GetBoundingBox();
 	void SortCorners();
