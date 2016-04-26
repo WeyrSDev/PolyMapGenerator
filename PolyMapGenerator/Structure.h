@@ -56,7 +56,7 @@ struct Center
 	bool IsContain(Vector2 pos);
 	std::pair<Vector2, Vector2> GetBoundingBox();
 	void SortCorners();
-	bool IsGoesBefore(Vector2 a, Vector2 b);
+	bool IsGoesBefore(Vector2 a, Vector2 b) const;
 
 	unsigned int m_index;
 	Vector2 m_position;
