@@ -248,6 +248,44 @@ bool Edge::Flip()
 	return true;
 }
 
-void SwitchCorner(Corner* oldCorner, Corner* newCorner);
-Corner* GetOppositeCorner(Corner* c);
-Center* GetOppositeCenter(Center* c);
+void Edge::SwitchCorner(Corner* oldCorner, Corner* newCorner)
+{
+	if (m_v0 == oldCorner)
+	{
+		m_v0 = newCorner;
+	}
+	else if (m_v1 == oldCorner)
+	{
+		m_v1 = newCorner;
+	}
+}
+
+Corner* Edge::GetOppositeCorner(Corner* c)
+{
+	if (m_v0 == c)
+	{
+		return m_v1;
+	}
+	
+	if (m_v1 == c)
+	{
+		return m_v0;
+	}
+
+	return nullptr;
+}
+
+Center* Edge::GetOppositeCenter(Center* c)
+{
+	if (m_d0 == c)
+	{
+		return m_d1;
+	}
+
+	if (m_d1 == c)
+	{
+		return m_d0;
+	}
+
+	return nullptr;
+}
