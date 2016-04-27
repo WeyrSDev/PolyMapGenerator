@@ -260,7 +260,7 @@ void Edge::SwitchCorner(Corner* oldCorner, Corner* newCorner)
 	}
 }
 
-Corner* Edge::GetOppositeCorner(Corner* c)
+Corner* Edge::GetOppositeCorner(Corner* c) const
 {
 	if (m_v0 == c)
 	{
@@ -275,7 +275,7 @@ Corner* Edge::GetOppositeCorner(Corner* c)
 	return nullptr;
 }
 
-Center* Edge::GetOppositeCenter(Center* c)
+Center* Edge::GetOppositeCenter(Center* c) const
 {
 	if (m_d0 == c)
 	{

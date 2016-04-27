@@ -92,8 +92,8 @@ struct Edge
 	bool Legalize();
 	bool Flip();
 	void SwitchCorner(Corner* oldCorner, Corner* newCorner);
-	Corner* GetOppositeCorner(Corner* c);
-	Center* GetOppositeCenter(Center* c);
+	Corner* GetOppositeCorner(Corner* c) const;
+	Center* GetOppositeCenter(Center* c) const;
 
 	unsigned int m_index;
 
