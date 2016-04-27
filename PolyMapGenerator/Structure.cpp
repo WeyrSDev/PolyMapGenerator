@@ -167,3 +167,87 @@ bool Center::IsGoesBefore(Vector2 a, Vector2 b) const
 
 	return ca.CrossProduct(cb) > 0;
 }
+
+bool Edge::Legalize()
+{
+	if (m_v0 == nullptr || m_v1 == nullptr)
+	{
+		return false;
+	}
+
+	if (m_v0->IsPointInCircumstanceCircle(m_v1->GetOppositeCenter(this)->m_position))
+	{
+		return this->Flip();
+	}
+
+	return false;
+}
+
+bool Edge::Flip()
+{
+	Center* center0 = m_v0->GetOppositeCenter(m_d0, m_d1);
+	Center* center1 = m_v1->GetOppositeCenter(m_d0, m_d1);
+
+	if (center0 == nullptr || center1 == nullptr)
+	{
+		return false;
+	}
+
+	Edge* e00 = center0->GetEdgeWith(m_d0);
+	Edge* e01 = center0->GetEdgeWith(m_d1);
+	Edge* e10 = center1->GetEdgeWith(m_d0);
+	Edge* e11 = center1->GetEdgeWith(m_d1);
+
+	e00->SwitchCorner(m_v0, m_v1);
+	e11->SwitchCorner(m_v1, m_v0);
+
+	m_d0->RemoveEdge(this);
+	m_d1->RemoveEdge(this);
+
+	m_d0->RemoveCorner(m_v0);
+	m_d1->RemoveCorner(m_v1);
+
+	center0->m_corners.emplace_back(m_v1);
+	center1->m_corners.emplace_back(m_v0);
+
+	center0->m_edges.emplace_back(this);
+	center1->m_edges.emplace_back(this);
+
+	m_v0->m_centers.clear();
+	m_v0->m_edges.clear();
+
+	m_v0->m_centers.emplace_back(center0);
+	m_v0->m_centers.emplace_back(center1);
+	m_v0->m_centers.emplace_back(m_d1);
+	m_v0->m_position = m_v0->CalculateCircumstanceCenter();
+
+	m_v0->m_edges.emplace_back(this);
+	m_v0->m_edges.emplace_back(e01);
+	m_v0->m_edges.emplace_back(e11);
+
+	m_v1->m_centers.clear();
+	m_v1->m_edges.clear();
+
+	m_v1->m_centers.emplace_back(center0);
+	m_v1->m_centers.emplace_back(m_d0);
+	m_v1->m_centers.emplace_back(center1);
+	m_v1->m_position = m_v1->CalculateCircumstanceCenter();
+
+	m_v1->m_edges.emplace_back(this);
+	m_v1->m_edges.emplace_back(e00);
+	m_v1->m_edges.emplace_back(e10);
+
+	m_d0 = center0;
+	m_d1 = center1;
+
+	e00->Legalize();
+	e01->Legalize();
+	e10->Legalize();
+	e11->Legalize();
+
+	return true;
+}
+
+void SwitchCorner(Corner* oldCorner, Corner* newCorner);
+Corner* GetOppositeCorner(Corner* c);
+Center* GetOppositeCenter(Center* c);
