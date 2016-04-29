@@ -397,11 +397,6 @@ Center* Corner::GetOppositeCenter(Edge* e)
 	return nullptr;
 }
 
-void Corner::SwitchCorner(Corner* oldCorner, Corner* newCorner)
-{
-	
-}
-
 bool TouchesCenter(Center* c);
 Edge* GetEdgeConnecting(Center* c0, Center* c1);
 bool IsInsideBoundingBox(Corner* c);
