@@ -368,7 +368,35 @@ Center* Corner::GetOppositeCenter(Center* c0, Center* c1)
 	return nullptr;
 }
 
-Center* GetOppositeCenter(Edge* e);
+Center* Corner::GetOppositeCenter(Edge* e)
+{
+	bool found = false;
+
+	for (auto edge : m_edges)
+	{
+		if (edge == e)
+		{
+			found = true;
+			break;
+		}
+	}
+
+	if (!found)
+	{
+		return nullptr;
+	}
+
+	for (auto center : m_centers)
+	{
+		if (center != e->m_d0 && center != e->m_d1)
+		{
+			return center;
+		}
+	}
+
+	return nullptr;
+}
+
 void SwitchAdjacent(Corner* oldCorner, Corner* newCorner);
 bool TouchesCenter(Center* c);
 Edge* GetEdgeConnecting(Center* c0, Center* c1);
