@@ -424,7 +424,7 @@ Edge* Corner::GetEdgeConnecting(Center* c0, Center* c1)
 	return nullptr;
 }
 
-bool Corner::IsInsideBoundingBox(int width, int height)
+bool Corner::IsInsideBoundingBox(int width, int height) const
 {
 	if (m_position.x < 0 || m_position.x >= width ||
 		m_position.y < 0 || m_position.y >= height)

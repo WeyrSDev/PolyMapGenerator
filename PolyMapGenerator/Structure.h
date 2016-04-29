@@ -123,7 +123,7 @@ struct Corner
 	Center* GetOppositeCenter(Edge* e);
 	bool TouchesCenter(Center* c);
 	Edge* GetEdgeConnecting(Center* c0, Center* c1);
-	bool IsInsideBoundingBox(int width, int height);
+	bool IsInsideBoundingBox(int width, int height) const;
 	Edge* GetEdgeWith(Corner* c);
 
 	static bool SortByElevation(Corner* c1, Corner* c2);
