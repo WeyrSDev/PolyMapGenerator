@@ -355,7 +355,19 @@ Vector2 Corner::CalculateCircumstanceCenter()
 	return abBisector.Intersection(bcBisector);
 }
 
-Center* GetOppositeCenter(Center* c0, Center* c1);
+Center* Corner::GetOppositeCenter(Center* c0, Center* c1)
+{
+	for (auto center : m_centers)
+	{
+		if (center != c0 && center != c1)
+		{
+			return center;
+		}
+	}
+
+	return nullptr;
+}
+
 void SwitchAdjacent(Corner* oldCorner, Corner* newCorner);
 bool TouchesCenter(Center* c);
 Edge* GetEdgeConnecting(Center* c0, Center* c1);
