@@ -410,7 +410,20 @@ bool Corner::TouchesCenter(Center* c)
 	return false;
 }
 
-Edge* GetEdgeConnecting(Center* c0, Center* c1);
+Edge* Corner::GetEdgeConnecting(Center* c0, Center* c1)
+{
+	for (auto edge : m_edges)
+	{
+		if (edge->m_d0 == c0 && edge->m_d1 == c1 ||
+			edge->m_d1 == c0 && edge->m_d0 == c1)
+		{
+			return edge;
+		}
+	}
+
+	return nullptr;
+}
+
 bool IsInsideBoundingBox(Corner* c);
 Edge* GetEdgeWith(Corner* c);
 
