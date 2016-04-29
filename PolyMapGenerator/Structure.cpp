@@ -448,5 +448,12 @@ Edge* Corner::GetEdgeWith(Corner* c)
 	return nullptr;
 }
 
-static bool SortByElevation(Corner* c1, Corner* c2);
-static bool SortByMoisture(Corner* c1, Corner* c2);
+bool Corner::SortByElevation(Corner* c1, Corner* c2)
+{
+	return c1->m_elevation < c2->m_elevation;
+}
+
+bool Corner::SortByMoisture(Corner* c1, Corner* c2)
+{
+	return c1->m_moisture < c2->m_moisture;
+}
