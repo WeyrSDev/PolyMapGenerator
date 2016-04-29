@@ -435,7 +435,18 @@ bool Corner::IsInsideBoundingBox(int width, int height) const
 	return true;
 }
 
-Edge* GetEdgeWith(Corner* c);
+Edge* Corner::GetEdgeWith(Corner* c)
+{
+	for (auto edge : m_edges)
+	{
+		if (edge->m_v0 == c || edge->m_v1 == c)
+		{
+			return edge;
+		}
+	}
+
+	return nullptr;
+}
 
 static bool SortByElevation(Corner* c1, Corner* c2);
 static bool SortByMoisture(Corner* c1, Corner* c2);
