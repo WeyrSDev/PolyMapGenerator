@@ -424,7 +424,11 @@ Edge* Corner::GetEdgeConnecting(Center* c0, Center* c1)
 	return nullptr;
 }
 
-bool IsInsideBoundingBox(Corner* c);
+bool Corner::IsInsideBoundingBox(int width, int height)
+{
+
+}
+
 Edge* GetEdgeWith(Corner* c);
 
 static bool SortByElevation(Corner* c1, Corner* c2);
