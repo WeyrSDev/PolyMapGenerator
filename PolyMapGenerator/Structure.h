@@ -121,7 +121,7 @@ struct Corner
 	Vector2 CalculateCircumstanceCenter();
 	Center* GetOppositeCenter(Center* c0, Center* c1);
 	Center* GetOppositeCenter(Edge* e);
-	void SwitchAdjacent(Corner* oldCorner, Corner* newCorner);
+	void SwitchCorner(Corner* oldCorner, Corner* newCorner);
 	bool TouchesCenter(Center* c);
 	Edge* GetEdgeConnecting(Center* c0, Center* c1);
 	bool IsInsideBoundingBox(Corner* c);
