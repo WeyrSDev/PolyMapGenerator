@@ -397,7 +397,19 @@ Center* Corner::GetOppositeCenter(Edge* e)
 	return nullptr;
 }
 
-bool TouchesCenter(Center* c);
+bool Corner::TouchesCenter(Center* c)
+{
+	for (auto center : m_centers)
+	{
+		if (center == c)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 Edge* GetEdgeConnecting(Center* c0, Center* c1);
 bool IsInsideBoundingBox(Corner* c);
 Edge* GetEdgeWith(Corner* c);
