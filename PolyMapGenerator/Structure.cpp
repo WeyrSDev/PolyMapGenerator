@@ -132,8 +132,8 @@ std::pair<Vector2, Vector2> Center::GetBoundingBox()
 
 void Center::SortCorners()
 {
-	Corner* item = nullptr;
-	int hole = 0;
+	Corner* item;
+	int hole;
 
 	for (int i = 1; i < m_corners.size(); ++i)
 	{
