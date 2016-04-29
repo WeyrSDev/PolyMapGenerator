@@ -290,8 +290,71 @@ Center* Edge::GetOppositeCenter(Center* c) const
 	return nullptr;
 }
 
-bool IsPointInCircumstanceCircle(Vector2 p);
-Vector2 CalculateCircumstanceCenter();
+bool Corner::IsPointInCircumstanceCircle(Vector2 p)
+{
+	if (m_centers.empty())
+	{
+		return false;
+	}
+
+	Center* pointCircumference = m_centers[0];
+
+	Vector2 cornerCenter(m_position, pointCircumference->m_position);
+	Vector2 cornerP(m_position, p);
+
+	return cornerCenter.Length() >= cornerP.Length();
+}
+
+Vector2 Corner::CalculateCircumstanceCenter()
+{
+	if (m_centers.size() != 3)
+	{
+		return Vector2();
+	}
+
+	Vector2 a = m_centers[0]->m_position;
+	Vector2 b = m_centers[1]->m_position;
+	Vector2 c = m_centers[2]->m_position;
+
+	Vector2 abMidpoint((a.x + b.x) / 2, (a.y + b.y) / 2);
+	LineEquation abEquation(a, b);
+
+	LineEquation abBisector;
+	if (abEquation.IsVertical())
+	{
+		abBisector = LineEquation(abMidpoint, Vector2(abMidpoint.x + 1, abMidpoint.y));
+	}
+	else if (abEquation.IsHorizontal())
+	{
+		abBisector = LineEquation(abMidpoint, Vector2(abMidpoint.x, abMidpoint.y + 1));
+	}
+	else
+	{
+		double abBisectorSlope = abEquation.m == 0 ? 0 : -1 / abEquation.m;
+		abBisector = LineEquation(abMidpoint, abBisectorSlope);
+	}
+
+	Vector2 bcMidpoint((b.x + c.x) / 2, (b.y + c.y) / 2);
+	LineEquation bcEquation(b, c);
+
+	LineEquation bcBisector;
+	if (bcEquation.IsVertical())
+	{
+		bcBisector = LineEquation(bcMidpoint, Vector2(bcMidpoint.x + 1, bcMidpoint.y));
+	}
+	else if (bcEquation.IsHorizontal())
+	{
+		bcBisector = LineEquation(bcMidpoint, Vector2(bcMidpoint.x, bcMidpoint.y + 1));
+	}
+	else
+	{
+		double bcBisectorSlope = bcEquation.m == 0 ? 0 : -1 / bcEquation.m;
+		bcBisector = LineEquation(bcMidpoint, bcBisectorSlope);
+	}
+
+	return abBisector.Intersection(bcBisector);
+}
+
 Center* GetOppositeCenter(Center* c0, Center* c1);
 void SwitchAdjacent(Corner* oldCorner, Corner* newCorner);
 bool TouchesCenter(Center* c);
