@@ -63,6 +63,33 @@ private:
 	std::vector<Center*> m_centers;
 
 	static const std::vector<std::vector<BiomeType>> m_elevationMoistureMatrix;
+	static std::vector<std::vector<BiomeType>> MakeBiomeMatrix();
+
+	bool IsIsland(Vector2 position);
+	void CalculateDownslopes();
+	void GenerateRivers();
+	void AssignOceanCoastLand();
+	void RedistributeElevations();
+	void AssignCornerElevations();
+	void AssignPolygonElevations();
+	void RedistributeMoisture();
+	void AssignCornerMoisture();
+	void AssignPolygonMoisture();
+	void AssignBiomes();
+
+	void GeneratePoints();
+	void Triangulate(std::vector<DelaunayTriangulation::Vertex> points);
+	void FinishInfo();
+	void AddCenter(Center* c);
+	Center* GetCenter(Vector2 position);
+	void OrderPoints(std::vector<Corner*>& corners);
+
+	std::vector<Corner*> GetLandCorners();
+	std::vector<Corner*> GetLakeCorners();
+	void LloydRelaxation();
+	std::string CreateSeed(int length);
+
+	static unsigned int HashString(std::string seed);
 };
 
 #endif
