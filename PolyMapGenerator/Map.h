@@ -32,6 +32,20 @@ public:
 	Map& operator=(const Map& map) = delete;
 	Map& operator=(Map&& map) = delete;
 
+	void Generate();
+
+	void GeneratePolygons();
+	void GenerateLand();
+
+	bool LoadFile(std::string fileName);
+	bool WriteFile(std::string fileName);
+
+	std::vector<Edge*> GetEdges();
+	std::vector<Corner*> GetCorners();
+	std::vector<Center*> GetCenters();
+
+	Center* GetCenterAt(Vector2 pos);
+
 private:
 	int m_mapWidth;
 	int m_mapHeight;
