@@ -168,5 +168,20 @@ void Map::GeneratePolygons()
 
 void Map::GenerateLand()
 {
-	
+	m_noiseMap = new noise::module::Perlin();
+
+	for (auto corner : m_corners)
+	{
+		if (!corner->IsInsideBoundingBox(m_mapWidth, m_mapHeight))
+		{
+			corner->m_border = true;
+			corner->m_ocean = true;
+			corner->m_water = true;
+		}
+	}
+
+	for (auto corner : m_corners)
+	{
+		corner->m_water = !IsIsland(corner->m_position);
+	}
 }
