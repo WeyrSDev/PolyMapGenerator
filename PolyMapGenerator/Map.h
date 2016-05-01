@@ -51,7 +51,7 @@ private:
 	int m_mapHeight;
 	double m_pointSpread;
 	double m_zCoord;
-	Noise::Module::Perlin* m_noiseMap;
+	noise::module::Perlin* m_noiseMap;
 	std::string m_seed;
 	QuadTree<Center*> m_centersQuadTree;
 
