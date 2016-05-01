@@ -74,3 +74,78 @@ Map::Map(int width, int height, double pointSpread, std::string seed) :
 	m_zCoord = mt_rand();
 	std::cout << "Seed: " << m_seed << "(" << HashString(m_seed) << ")" << std::endl;
 }
+
+void Map::Generate()
+{
+	sf::Clock timer;
+
+	GeneratePolygons();
+
+	std::cout << "Land distribution: ";
+	timer.restart();
+	GenerateLand();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+
+	// Elevation
+	std::cout << "Coast assignment: ";
+	timer.restart();
+	AssignOceanCoastLand();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Corner altitude: ";
+	timer.restart();
+	AssignCornerElevations();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Altitude redistribution: ";
+	timer.restart();
+	RedistributeElevations();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Center altitude: ";
+	timer.restart();
+	AssignPolygonElevations();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	// Moisture
+	std::cout << "Downslopes: ";
+	timer.restart();
+	CalculateDownslopes();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "River generation: ";
+	timer.restart();
+	GenerateRivers();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Corner moisture: ";
+	timer.restart();
+	AssignCornerMoisture();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Moisture redistribution: ";
+	timer.restart();
+	RedistributeMoisture();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Center moisture: ";
+	timer.restart();
+	AssignPolygonMoisture();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	// Biomes
+	std::cout << "Biome assignment: ";
+	timer.restart();
+	AssignBiomes();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+
+	std::cout << "Populate Quadtree: ";
+	timer.restart();
+	for (auto center : m_centers)
+	{
+		std::pair<Vector2, Vector2> aabb(center->GetBoundingBox());
+		m_centersQuadTree.Insert2(center, AABB(aabb.first, aabb.second));
+	}
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+}
