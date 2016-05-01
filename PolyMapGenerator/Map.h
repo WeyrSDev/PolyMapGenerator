@@ -10,9 +10,9 @@
 
 // Forward Declaration
 class Vector2;
-namespace Noise
+namespace noise
 {
-	namespace Module
+	namespace module
 	{
 		class Perlin;
 	}
