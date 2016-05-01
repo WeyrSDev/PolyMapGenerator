@@ -37,9 +37,6 @@ public:
 	void GeneratePolygons();
 	void GenerateLand();
 
-	bool LoadFile(std::string fileName);
-	bool WriteFile(std::string fileName);
-
 	std::vector<Edge*> GetEdges();
 	std::vector<Corner*> GetCorners();
 	std::vector<Center*> GetCenters();
