@@ -37,9 +37,9 @@ public:
 	void GeneratePolygons();
 	void GenerateLand();
 
-	std::vector<Edge*> GetEdges();
-	std::vector<Corner*> GetCorners();
-	std::vector<Center*> GetCenters();
+	std::vector<Edge*> GetEdges() const;
+	std::vector<Corner*> GetCorners() const;
+	std::vector<Center*> GetCenters() const;
 
 	Center* GetCenterAt(Vector2 pos);
 

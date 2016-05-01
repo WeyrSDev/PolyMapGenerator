@@ -186,17 +186,17 @@ void Map::GenerateLand()
 	}
 }
 
-std::vector<Edge*> Map::GetEdges()
+std::vector<Edge*> Map::GetEdges() const
 {
 	return m_edges;
 }
 
-std::vector<Corner*> Map::GetCorners()
+std::vector<Corner*> Map::GetCorners() const
 {
 	return m_corners;
 }
 
-std::vector<Center*> Map::GetCenters()
+std::vector<Center*> Map::GetCenters() const
 {
 	return m_centers;
 }
