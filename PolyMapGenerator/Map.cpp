@@ -185,3 +185,42 @@ void Map::GenerateLand()
 		corner->m_water = !IsIsland(corner->m_position);
 	}
 }
+
+std::vector<Edge*> Map::GetEdges()
+{
+	return m_edges;
+}
+
+std::vector<Corner*> Map::GetCorners()
+{
+	return m_corners;
+}
+
+std::vector<Center*> Map::GetCenters()
+{
+	return m_centers;
+}
+
+Center* Map::GetCenterAt(Vector2 pos)
+{
+	Center* center = nullptr;
+	std::vector<Center*> auxCenters = m_centersQuadTree.QueryRange(pos);
+
+	if (auxCenters.size() > 0)
+	{
+		double minDist = Vector2(auxCenters[0]->m_position, pos).Length();
+		center = auxCenters[0];
+
+		for (auto auxCenter : auxCenters)
+		{
+			double newDist = Vector2(auxCenter->m_position, pos).Length();
+			if (newDist < minDist)
+			{
+				minDist = newDist;
+				center = auxCenter;
+			}
+		}
+	}
+
+	return center;
+}
