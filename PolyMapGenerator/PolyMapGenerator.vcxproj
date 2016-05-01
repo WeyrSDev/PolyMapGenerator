@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DelaunayTriangulation.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Math\LineEquation.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Structure.cpp" />
