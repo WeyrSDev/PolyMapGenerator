@@ -1,4 +1,5 @@
-#include <chrono>
+#include <iostream>
+#include <random>
 #include <queue>
 #include <SFML/System.hpp>
 
@@ -57,4 +58,19 @@ std::vector<std::vector<BiomeType>> Map::MakeBiomeMatrix()
 	biomeVector.clear();
 
 	return matrix;
+}
+
+Map::Map(int width, int height, double pointSpread, std::string seed) :
+	m_mapWidth(width), m_mapHeight(height), m_pointSpread(pointSpread), m_zCoord(0.0),
+	m_noiseMap(nullptr), m_seed(seed), m_centersQuadTree(AABB(Vector2(width / 2, height / 2), Vector2(width / 2, height / 2)), 1)
+{
+	double approxPointCount = (2 * m_mapWidth * m_mapHeight) / (3.1416 * m_pointSpread * m_pointSpread);
+	int maxTreeDepth = floor((log(approxPointCount) / log(4)) + 0.5);
+	QuadTree<Center*>::SetMaxDepth(maxTreeDepth);
+
+	m_seed = seed != "" ? seed : CreateSeed(20);
+	std::mt19937 mt_rand(HashString(m_seed));
+
+	m_zCoord = mt_rand();
+	std::cout << "Seed: " << m_seed << "(" << HashString(m_seed) << ")" << std::endl;
 }
