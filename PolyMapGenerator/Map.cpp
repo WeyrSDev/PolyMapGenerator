@@ -149,3 +149,24 @@ void Map::Generate()
 	}
 	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
 }
+
+void Map::GeneratePolygons()
+{
+	sf::Clock timer;
+
+	GeneratePoints();
+	std::cout << "Point placement: " << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+	timer.restart();
+
+	Triangulate(m_points);
+	std::cout << "Triangulation: " << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+	timer.restart();
+
+	FinishInfo();
+	std::cout << "Finishing touches: " << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
+}
+
+void Map::GenerateLand()
+{
+	
+}
