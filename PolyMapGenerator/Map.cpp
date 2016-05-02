@@ -460,7 +460,67 @@ void Map::RedistributeMoisture()
 	}
 }
 
-void AssignCornerMoisture();
+void Map::AssignCornerMoisture()
+{
+	std::queue<Corner*> cornersQueue;
+
+	for (auto c : m_corners)
+	{
+		if ((c->m_water || c->m_riverVolume > 0) && !c->m_ocean)
+		{
+			c->m_moisture = c->m_riverVolume > 0 ? std::min(3.0, 0.2 * c->m_riverVolume) : 1.0;
+			cornersQueue.push(c);
+		}
+		else
+		{
+			c->m_moisture = 0.0;
+		}
+	}
+
+	while (!cornersQueue.empty())
+	{
+		Corner* c = cornersQueue.front();
+		cornersQueue.pop();
+
+		for (auto r : c->m_corners)
+		{
+			double newMoisture = c->m_moisture * 0.9;
+			
+			if (newMoisture > r->m_moisture)
+			{
+				r->m_moisture = newMoisture;
+				cornersQueue.push(r);
+			}
+		}
+	}
+
+	for (auto r : m_corners)
+	{
+		if (r->m_ocean)
+		{
+			r->m_moisture = 1.0;
+			cornersQueue.push(r);
+		}
+	}
+
+	while (!cornersQueue.empty())
+	{
+		Corner* c = cornersQueue.front();
+		cornersQueue.pop();
+
+		for (auto r : c->m_corners)
+		{
+			double newMoisture = c->m_moisture * 0.3;
+
+			if (newMoisture > r->m_moisture)
+			{
+				r->m_moisture = newMoisture;
+				cornersQueue.push(r);
+			}
+		}
+	}
+}
+
 void AssignPolygonMoisture();
 void AssignBiomes();
 
