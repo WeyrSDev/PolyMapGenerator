@@ -267,7 +267,36 @@ void Map::CalculateDownslopes()
 	}
 }
 
-void GenerateRivers();
+void Map::GenerateRivers()
+{
+	std::mt19937 mt_rand(HashString(m_seed));
+	int numRivers = m_centers.size() / 3;
+
+	for (int i = 0; i < numRivers; ++i)
+	{
+		Corner* q = m_corners[mt_rand() % m_corners.size()];
+
+		if (q->m_ocean || q->m_elevation < 0.3 || q->m_elevation > 0.9)
+		{
+			continue;
+		}
+
+		while (!q->m_coast)
+		{
+			if (q == q->m_downslope)
+			{
+				break;
+			}
+
+			Edge* e = q->GetEdgeWith(q->m_downslope);
+			e->m_riverVolume += 1;
+			q->m_riverVolume += 1;
+			q->m_downslope->m_riverVolume += 1;
+			q = q->m_downslope;
+		}
+	}
+}
+
 void AssignOceanCoastLand();
 void RedistributeElevations();
 void AssignCornerElevations();
