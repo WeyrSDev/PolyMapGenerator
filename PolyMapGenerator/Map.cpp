@@ -386,7 +386,54 @@ void Map::RedistributeElevations()
 	}
 }
 
-void AssignCornerElevations();
+void Map::AssignCornerElevations()
+{
+	std::queue<Corner*> cornersQueue;
+
+	for (auto q : m_corners)
+	{
+		if (q->m_border)
+		{
+			q->m_elevation = 0.0;
+			cornersQueue.push(q);
+		}
+		else
+		{
+			q->m_elevation = 99999;
+		}
+	}
+
+	while (!cornersQueue.empty())
+	{
+		Corner* q = cornersQueue.front();
+		cornersQueue.pop();
+
+		for (auto s : q->m_corners)
+		{
+			double newElevation = q->m_elevation + 0.01;
+
+			if (!q->m_water && !s->m_water)
+			{
+				newElevation += 1;
+			}
+			
+			if (newElevation < s->m_elevation)
+			{
+				s->m_elevation = newElevation;
+				cornersQueue.push(s);
+			}
+		}
+	}
+
+	for (auto q : m_corners)
+	{
+		if (q->m_water)
+		{
+			q->m_elevation = 0.0;
+		}
+	}
+}
+
 void AssignPolygonElevations();
 void RedistributeMoisture();
 void AssignCornerMoisture();
