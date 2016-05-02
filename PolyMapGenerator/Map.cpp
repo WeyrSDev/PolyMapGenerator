@@ -225,7 +225,31 @@ Center* Map::GetCenterAt(Vector2 pos)
 	return center;
 }
 
-bool IsIsland(Vector2 position);
+bool Map::IsIsland(Vector2 position)
+{
+	double waterThreshold = 0.075;
+
+	if (position.x < m_mapWidth * waterThreshold || position.y < m_mapHeight * waterThreshold ||
+		position.x > m_mapWidth * (1 - waterThreshold) || position.y > m_mapHeight * (1 - waterThreshold))
+	{
+		return false;
+	}
+
+	Vector2 centerPos = Vector2(m_mapWidth / 2.0, m_mapHeight / 2.0);
+	position -= centerPos;
+
+	double xCoord = (position.x / m_mapWidth) * 4;
+	double yCoord = (position.y / m_mapHeight) * 4;
+	double noiseVal = m_noiseMap->GetValue(xCoord, yCoord, m_zCoord);
+
+	position /= std::min(m_mapWidth, m_mapHeight);
+	double radius = position.Length();
+
+	double factor = radius - 0.5;
+
+	return noiseVal >= 0.3 * radius + factor;
+}
+
 void CalculateDownslopes();
 void GenerateRivers();
 void AssignOceanCoastLand();
