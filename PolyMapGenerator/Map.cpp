@@ -250,7 +250,23 @@ bool Map::IsIsland(Vector2 position)
 	return noiseVal >= 0.3 * radius + factor;
 }
 
-void CalculateDownslopes();
+void Map::CalculateDownslopes()
+{
+	for (auto c : m_corners)
+	{
+		Corner* d = c;
+		for (auto q : c->m_corners)
+		{
+			if (q->m_elevation < d->m_elevation)
+			{
+				d = q;
+			}
+		}
+
+		c->m_downslope = d;
+	}
+}
+
 void GenerateRivers();
 void AssignOceanCoastLand();
 void RedistributeElevations();
