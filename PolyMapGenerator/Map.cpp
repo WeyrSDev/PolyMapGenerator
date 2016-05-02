@@ -434,7 +434,20 @@ void Map::AssignCornerElevations()
 	}
 }
 
-void AssignPolygonElevations();
+void Map::AssignPolygonElevations()
+{
+	for (auto p : m_centers)
+	{
+		double sumElevation = 0.0;
+		for (auto q : p->m_corners)
+		{
+			sumElevation += q->m_elevation;
+		}
+
+		p->m_elevation = sumElevation / p->m_corners.size();
+	}
+}
+
 void RedistributeMoisture();
 void AssignCornerMoisture();
 void AssignPolygonMoisture();
