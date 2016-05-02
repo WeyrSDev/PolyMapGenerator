@@ -584,7 +584,23 @@ void Map::AssignBiomes()
 	}
 }
 
-void GeneratePoints();
+void Map::GeneratePoints()
+{
+	PoissonDiskSampling pds(800, 600, m_pointSpread, 10);
+	std::vector<std::pair<double, double>> newPoints = pds.Generate();
+	std::cout << "Generating " << newPoints.size() << " points..." << std::endl;
+
+	for (auto point : newPoints)
+	{
+		m_points.push_back(DelaunayTriangulation::Vertex(static_cast<int>(point.first), static_cast<int>(point.second)));
+	}
+
+	m_points.push_back(DelaunayTriangulation::Vertex(-m_mapWidth, -m_mapHeight));
+	m_points.push_back(DelaunayTriangulation::Vertex(2 * m_mapWidth, -m_mapHeight));
+	m_points.push_back(DelaunayTriangulation::Vertex(2 * m_mapWidth, 2 * m_mapHeight));
+	m_points.push_back(DelaunayTriangulation::Vertex(-m_mapWidth, 2 * m_mapHeight));
+}
+
 void Triangulate(std::vector<DelaunayTriangulation::Vertex> points);
 void FinishInfo();
 void AddCenter(Center* c);
