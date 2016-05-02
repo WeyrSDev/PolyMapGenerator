@@ -370,7 +370,22 @@ void Map::AssignOceanCoastLand()
 	}
 }
 
-void RedistributeElevations();
+void Map::RedistributeElevations()
+{
+	std::vector<Corner*> locations = GetLandCorners();
+	const double SCALE_FACTOR = 1.05;
+
+	sort(locations.begin(), locations.end(), &Corner::SortByElevation);
+
+	for (int i = 0; i < locations.size(); ++i)
+	{
+		double y = static_cast<double>(i) / (locations.size() - 1);
+		double x = sqrt(SCALE_FACTOR) - sqrt(SCALE_FACTOR * (1 - y));
+		x = std::min(x, 1.0);
+		locations[i]->m_elevation = x;
+	}
+}
+
 void AssignCornerElevations();
 void AssignPolygonElevations();
 void RedistributeMoisture();
