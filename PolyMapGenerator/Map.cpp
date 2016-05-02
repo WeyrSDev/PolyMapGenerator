@@ -448,7 +448,18 @@ void Map::AssignPolygonElevations()
 	}
 }
 
-void RedistributeMoisture();
+void Map::RedistributeMoisture()
+{
+	std::vector<Corner*> locations = GetLandCorners();
+
+	sort(locations.begin(), locations.end(), &Corner::SortByMoisture);
+
+	for (int i = 0; i < locations.size(); ++i)
+	{
+		locations[i]->m_moisture = static_cast<double>(i) / (locations.size() - 1);
+	}
+}
+
 void AssignCornerMoisture();
 void AssignPolygonMoisture();
 void AssignBiomes();
