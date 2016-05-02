@@ -521,7 +521,26 @@ void Map::AssignCornerMoisture()
 	}
 }
 
-void AssignPolygonMoisture();
+void Map::AssignPolygonMoisture()
+{
+	for (auto p : m_centers)
+	{
+		double newMoistrue = 0.0;
+
+		for (auto q : p->m_corners)
+		{
+			if (q->m_moisture > 1.0)
+			{
+				q->m_moisture = 1.0;
+			}
+
+			newMoistrue += q->m_moisture;
+		}
+
+		p->m_moisture = newMoistrue / p->m_corners.size();
+	}
+}
+
 void AssignBiomes();
 
 void GeneratePoints();
