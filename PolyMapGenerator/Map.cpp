@@ -297,7 +297,79 @@ void Map::GenerateRivers()
 	}
 }
 
-void AssignOceanCoastLand();
+void Map::AssignOceanCoastLand()
+{
+	std::queue<Center*> centersQueue;
+
+	for (auto c : m_centers)
+	{
+		int adjacentWater = 0;
+		
+		for (auto q : c->m_centers)
+		{
+			if (q->m_border)
+			{
+				c->m_border = true;
+				c->m_ocean = true;
+				q->m_water = true;
+				centersQueue.push(c);
+			}
+
+			if (q->m_water)
+			{
+				adjacentWater++;
+			}
+		}
+
+		c->m_water = (c->m_ocean || adjacentWater >= c->m_corners.size() * 0.5);
+	}
+
+	while (!centersQueue.empty())
+	{
+		Center* c = centersQueue.front();
+		centersQueue.pop();
+
+		for (auto r : c->m_centers)
+		{
+			if (r->m_water && !r->m_ocean)
+			{
+				r->m_ocean = true;
+				centersQueue.push(r);
+			}
+		}
+	}
+
+	for (auto p : m_centers)
+	{
+		int numOcean = 0;
+		int numLand = 0;
+
+		for (auto q : p->m_centers)
+		{
+			numOcean += static_cast<int>(q->m_ocean);
+			numLand += static_cast<int>(!q->m_water);
+		}
+
+		p->m_coast = numLand > 0 && numOcean > 0;
+	}
+
+	for (auto c : m_corners)
+	{
+		int adjOcean = 0;
+		int adjLand = 0;
+
+		for (auto p : c->m_centers)
+		{
+			adjOcean += static_cast<int>(p->m_ocean);
+			adjLand += static_cast<int>(!p->m_water);
+		}
+
+		c->m_ocean = adjOcean == c->m_centers.size();
+		c->m_coast = adjLand > 0 && adjOcean > 0;
+		c->m_water = c->m_border || (adjLand != c->m_centers.size() && !c->m_coast);
+	}
+}
+
 void RedistributeElevations();
 void AssignCornerElevations();
 void AssignPolygonElevations();
