@@ -541,7 +541,48 @@ void Map::AssignPolygonMoisture()
 	}
 }
 
-void AssignBiomes();
+void Map::AssignBiomes()
+{
+	for (auto center : m_centers)
+	{
+		if (center->m_ocean)
+		{
+			center->m_biome = BiomeType::Ocean;
+		}
+		else if (center->m_water)
+		{
+			center->m_biome = BiomeType::Lake;
+		}
+		else if (center->m_coast && center->m_moisture < 0.6)
+		{
+			center->m_biome = BiomeType::Beach;
+		}
+		else
+		{
+			int elevationIndex = 0;
+			
+			if (center->m_elevation > 0.85)
+			{
+				elevationIndex = 3;
+			}
+			else if (center->m_elevation > 0.6)
+			{
+				elevationIndex = 2;
+			}
+			else if (center->m_elevation > 0.3)
+			{
+				elevationIndex = 1;
+			}
+			else
+			{
+				elevationIndex = 0;
+			}
+
+			int moistureIndex = std::min(static_cast<int>(floor(center->m_moisture * 6)), 5);
+			center->m_biome = m_elevationMoistureMatrix[moistureIndex][elevationIndex];
+		}
+	}
+}
 
 void GeneratePoints();
 void Triangulate(std::vector<DelaunayTriangulation::Vertex> points);
