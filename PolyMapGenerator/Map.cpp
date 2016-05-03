@@ -782,7 +782,21 @@ std::vector<Corner*> Map::GetLandCorners()
 	return landCorners;
 }
 
-std::vector<Corner*> GetLakeCorners();
+std::vector<Corner*> Map::GetLakeCorners()
+{
+	std::vector<Corner*> lakeCorners;
+
+	for (auto c : m_corners)
+	{
+		if (!c->m_water && !c->m_ocean)
+		{
+			lakeCorners.push_back(c);
+		}
+	}
+
+	return lakeCorners;
+}
+
 void LloydRelaxation();
 std::string CreateSeed(int length);
 
