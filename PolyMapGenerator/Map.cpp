@@ -750,7 +750,23 @@ void Map::AddCenter(Center* c)
 	}
 }
 
-Center* GetCenter(Vector2 position);
+Center* Map::GetCenter(Vector2 position)
+{
+	std::map<double, std::map<double, Center*>>::const_iterator iter = m_posCenterMap.find(position.x);
+
+	if (iter != m_posCenterMap.end())
+	{
+		std::map<double, Center*>::const_iterator iter2 = iter->second.find(position.y);
+
+		if (iter2 != iter->second.end())
+		{
+			return iter2->second;
+		}
+	}
+
+	return nullptr;
+}
+
 void OrderPoints(std::vector<Corner*>& corners);
 
 std::vector<Corner*> GetLandCorners();
