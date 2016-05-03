@@ -601,7 +601,108 @@ void Map::GeneratePoints()
 	m_points.push_back(DelaunayTriangulation::Vertex(-m_mapWidth, 2 * m_mapHeight));
 }
 
-void Triangulate(std::vector<DelaunayTriangulation::Vertex> points);
+void Map::Triangulate(std::vector<DelaunayTriangulation::Vertex> points)
+{
+	int cornerIndex = 0, centerIndex = 0, edgeIndex = 0;
+	m_corners.clear();
+	m_centers.clear();
+	m_edges.clear();
+	m_posCenterMap.clear();
+
+	DelaunayTriangulation::VertexSet vertices(points.begin(), points.end());
+	DelaunayTriangulation::TriangleSet triangles;
+	DelaunayTriangulation::EdgeSet edges;
+	DelaunayTriangulation::Delaunay delaunay;
+
+	delaunay.Triangulate(vertices, triangles);
+
+	for (auto t : triangles)
+	{
+		Vector2 posCenter0(t.GetVertex(0)->GetX(), t.GetVertex(0)->GetY());
+		Vector2 posCenter1(t.GetVertex(1)->GetX(), t.GetVertex(1)->GetY());
+		Vector2 posCenter2(t.GetVertex(2)->GetX(), t.GetVertex(2)->GetY());
+
+		Center* c1 = GetCenter(posCenter0);
+		if (c1 == nullptr)
+		{
+			c1 = new Center(centerIndex++, posCenter0);
+			m_centers.push_back(c1);
+			AddCenter(c1);
+		}
+
+		Center* c2 = GetCenter(posCenter1);
+		if (c2 == nullptr)
+		{
+			c2 = new Center(centerIndex++, posCenter1);
+			m_centers.push_back(c2);
+			AddCenter(c2);
+		}
+
+		Center* c3 = GetCenter(posCenter2);
+		if (c3 == nullptr)
+		{
+			c3 = new Center(centerIndex++, posCenter2);
+			m_centers.push_back(c3);
+			AddCenter(c3);
+		}
+
+		Corner* c = new Corner(cornerIndex++, Vector2());
+		m_corners.push_back(c);
+		c->m_centers.push_back(c1);
+		c->m_centers.push_back(c2);
+		c->m_centers.push_back(c3);
+		c1->m_corners.push_back(c);
+		c2->m_corners.push_back(c);
+		c3->m_corners.push_back(c);
+		c->m_position = c->CalculateCircumstanceCenter();
+
+		Edge* e12 = c1->GetEdgeWith(c2);
+		if (e12 == nullptr)
+		{
+			e12 = new Edge(edgeIndex++, c1, c2, nullptr, nullptr);
+			e12->m_v0 = c;
+			m_edges.push_back(e12);
+			c1->m_edges.push_back(e12);
+			c2->m_edges.push_back(e12);
+		}
+		else
+		{
+			e12->m_v1 = c;
+		}
+		c->m_edges.push_back(e12);
+
+		Edge* e23 = c2->GetEdgeWith(c3);
+		if (e23 == nullptr)
+		{
+			e23 = new Edge(edgeIndex++, c2, c3, nullptr, nullptr);
+			e23->m_v0 = c;
+			m_edges.push_back(e23);
+			c2->m_edges.push_back(e23);
+			c3->m_edges.push_back(e23);
+		}
+		else
+		{
+			e23->m_v1 = c;
+		}
+		c->m_edges.push_back(e23);
+
+		Edge* e31 = c3->GetEdgeWith(c1);
+		if (e31 == nullptr)
+		{
+			e31 = new Edge(edgeIndex++, c3, c1, nullptr, nullptr);
+			e31->m_v0 = c;
+			m_edges.push_back(e31);
+			c3->m_edges.push_back(e31);
+			c1->m_edges.push_back(e31);
+		}
+		else
+		{
+			e31->m_v1 = c;
+		}
+		c->m_edges.push_back(e31);
+	}
+}
+
 void FinishInfo();
 void AddCenter(Center* c);
 Center* GetCenter(Vector2 position);
