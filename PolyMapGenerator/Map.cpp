@@ -850,6 +850,21 @@ void Map::LloydRelaxation()
 	Triangulate(newPoints);
 }
 
-std::string CreateSeed(int length);
+std::string Map::CreateSeed(int length)
+{
+	std::mt19937 mt_rand;
+	static const char alphanum[] =
+		"0123456789"
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		"abcdefghijklmnopqrstuvwxyz";
+	std::string seed;
+
+	for (int i = 0; i < length; ++i)
+	{
+		seed.push_back(alphanum[mt_rand() % (sizeof(alphanum) - 1)]);
+	}
+
+	return seed;
+}
 
 static unsigned int HashString(std::string seed);
