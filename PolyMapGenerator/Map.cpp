@@ -703,7 +703,38 @@ void Map::Triangulate(std::vector<DelaunayTriangulation::Vertex> points)
 	}
 }
 
-void FinishInfo();
+void Map::FinishInfo()
+{
+	for (auto center : m_centers)
+	{
+		center->SortCorners();
+	}
+
+	for (auto c : m_centers)
+	{
+		for (auto e : c->m_edges)
+		{
+			Center* auxCenter = e->GetOppositeCenter(c);
+			if (auxCenter != nullptr)
+			{
+				c->m_centers.push_back(auxCenter);
+			}
+		}
+	}
+
+	for (auto c : m_corners)
+	{
+		for (auto e : c->m_edges)
+		{
+			Corner* auxCorner = e->GetOppositeCorner(c);
+			if (auxCorner != nullptr)
+			{
+				c->m_corners.push_back(auxCorner);
+			}
+		}
+	}
+}
+
 void AddCenter(Center* c);
 Center* GetCenter(Vector2 position);
 void OrderPoints(std::vector<Corner*>& corners);
