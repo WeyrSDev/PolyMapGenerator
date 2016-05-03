@@ -79,7 +79,6 @@ private:
 	void FinishInfo();
 	void AddCenter(Center* c);
 	Center* GetCenter(Vector2 position);
-	void OrderPoints(std::vector<Corner*>& corners);
 
 	std::vector<Corner*> GetLandCorners();
 	std::vector<Corner*> GetLakeCorners();

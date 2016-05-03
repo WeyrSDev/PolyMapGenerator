@@ -767,8 +767,6 @@ Center* Map::GetCenter(Vector2 position)
 	return nullptr;
 }
 
-void OrderPoints(std::vector<Corner*>& corners);
-
 std::vector<Corner*> GetLandCorners();
 std::vector<Corner*> GetLakeCorners();
 void LloydRelaxation();
