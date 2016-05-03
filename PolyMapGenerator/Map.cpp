@@ -867,4 +867,14 @@ std::string Map::CreateSeed(int length)
 	return seed;
 }
 
-static unsigned int HashString(std::string seed);
+unsigned int Map::HashString(std::string seed)
+{
+	unsigned int hash = 0;
+
+	for (int i = 0; i < seed.length(); ++i)
+	{
+		hash += static_cast<int>(seed[i]) * pow(2, i);
+	}
+
+	return hash % UINT_MAX;
+}
