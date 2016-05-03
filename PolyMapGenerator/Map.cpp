@@ -797,7 +797,59 @@ std::vector<Corner*> Map::GetLakeCorners()
 	return lakeCorners;
 }
 
-void LloydRelaxation();
+void Map::LloydRelaxation()
+{
+	std::vector<DelaunayTriangulation::Vertex> newPoints;
+
+	for (auto p : m_centers)
+	{
+		if (!p->IsInsideBoundingBox(m_mapWidth, m_mapHeight))
+		{
+			newPoints.push_back(DelaunayTriangulation::Vertex(static_cast<int>(p->m_position.x), static_cast<int>(p->m_position.y)));
+			continue;
+		}
+
+		Vector2 centerCentroid;
+
+		for (auto q : p->m_corners)
+		{
+			if (q->IsInsideBoundingBox(m_mapWidth, m_mapHeight))
+			{
+				centerCentroid += q->m_position;
+			}
+			else
+			{
+				Vector2 cornerPos = q->m_position;
+
+				if (cornerPos.x < 0)
+				{
+					cornerPos.x = 0;
+				}
+				else if (cornerPos.x >= m_mapWidth)
+				{
+					cornerPos.x = m_mapWidth;
+				}
+
+				if (cornerPos.y < 0)
+				{
+					cornerPos.y = 0;
+				}
+				else if (cornerPos.y >= m_mapHeight)
+				{
+					cornerPos.y = m_mapHeight;
+				}
+
+				centerCentroid += cornerPos;
+			}
+		}
+
+		centerCentroid /= p->m_corners.size();
+		newPoints.push_back(DelaunayTriangulation::Vertex(static_cast<int>(centerCentroid.x), static_cast<int>(centerCentroid.y)));
+	}
+
+	Triangulate(newPoints);
+}
+
 std::string CreateSeed(int length);
 
 static unsigned int HashString(std::string seed);
