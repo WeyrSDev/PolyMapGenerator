@@ -735,7 +735,21 @@ void Map::FinishInfo()
 	}
 }
 
-void AddCenter(Center* c);
+void Map::AddCenter(Center* c)
+{
+	std::map<double, std::map<double, Center*>>::const_iterator iter = m_posCenterMap.find(c->m_position.x);
+
+	if (iter != m_posCenterMap.end())
+	{
+		m_posCenterMap[static_cast<int>(c->m_position.x)][static_cast<int>(c->m_position.y)] = c;
+	}
+	else
+	{
+		m_posCenterMap[static_cast<int>(c->m_position.x)] = std::map<double, Center*>();
+		m_posCenterMap[static_cast<int>(c->m_position.x)][static_cast<int>(c->m_position.y)] = c;
+	}
+}
+
 Center* GetCenter(Vector2 position);
 void OrderPoints(std::vector<Corner*>& corners);
 
