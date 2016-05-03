@@ -62,7 +62,7 @@ private:
 	static const std::vector<std::vector<BiomeType>> m_elevationMoistureMatrix;
 	static std::vector<std::vector<BiomeType>> MakeBiomeMatrix();
 
-	bool IsIsland(Vector2 position);
+	bool IsIsland(Vector2 position) const;
 	void CalculateDownslopes();
 	void GenerateRivers();
 	void AssignOceanCoastLand();
@@ -83,7 +83,7 @@ private:
 	std::vector<Corner*> GetLandCorners();
 	std::vector<Corner*> GetLakeCorners();
 	void LloydRelaxation();
-	std::string CreateSeed(int length);
+	std::string CreateSeed(int length) const;
 
 	static unsigned int HashString(std::string seed);
 };

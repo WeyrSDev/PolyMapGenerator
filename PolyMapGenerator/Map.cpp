@@ -225,7 +225,7 @@ Center* Map::GetCenterAt(Vector2 pos)
 	return center;
 }
 
-bool Map::IsIsland(Vector2 position)
+bool Map::IsIsland(Vector2 position) const
 {
 	double waterThreshold = 0.075;
 
@@ -850,7 +850,7 @@ void Map::LloydRelaxation()
 	Triangulate(newPoints);
 }
 
-std::string Map::CreateSeed(int length)
+std::string Map::CreateSeed(int length) const
 {
 	std::mt19937 mt_rand;
 	static const char alphanum[] =
