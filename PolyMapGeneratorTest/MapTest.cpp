@@ -5,6 +5,8 @@
 #include "Map.h"
 #include "Structure.h"
 #include "Noise/noise.h"
+#include "QuadTree.h"
+#include "PoissonDiskSampling/PoissonDiskSampling.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
