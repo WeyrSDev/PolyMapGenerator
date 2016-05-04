@@ -80,3 +80,8 @@ const sf::Color BIOME_COLOR[] =
 	sf::Color(sf::Uint8(95), sf::Uint8(134), sf::Uint8(169)),
 	sf::Color(sf::Uint8(178), sf::Uint8(166), sf::Uint8(148))
 };
+
+void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow *window);
+void DrawEdge(Edge* e, sf::RenderWindow* window);
+void DrawCorner(Corner* c, sf::RenderWindow* window);
+void DrawCenter(Center* c, sf::RenderWindow* window);
