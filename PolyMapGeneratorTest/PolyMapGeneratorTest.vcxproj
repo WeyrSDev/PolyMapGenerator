@@ -71,10 +71,11 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <BrowseInformation>true</BrowseInformation>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Libraries\Noise\include;$(SolutionDir)\Libraries\PoissionDiskSampling\include;$(SolutionDir)\Libraries\SFML\include;$(SolutionDir)\Libraries\PolygonalMapGenerator\include\PolygonalMapGenerator;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -114,7 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="MapTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
