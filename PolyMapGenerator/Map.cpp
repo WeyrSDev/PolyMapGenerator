@@ -305,7 +305,7 @@ void Map::AssignOceanCoastLand()
 	{
 		int adjacentWater = 0;
 		
-		for (auto q : c->m_centers)
+		for (auto q : c->m_corners)
 		{
 			if (q->m_border)
 			{
@@ -852,7 +852,8 @@ void Map::LloydRelaxation()
 
 std::string Map::CreateSeed(int length) const
 {
-	std::mt19937 mt_rand;
+	std::random_device rd;
+	std::mt19937 mt_rand(rd());
 	static const char alphanum[] =
 		"0123456789"
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
