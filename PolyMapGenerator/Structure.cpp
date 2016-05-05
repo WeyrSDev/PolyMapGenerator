@@ -88,7 +88,7 @@ bool Center::IsContain(Vector2 pos)
 		Vector2 ab((*iter)->m_position, (*(iter + 1))->m_position);
 		Vector2 ap((*iter)->m_position, pos);
 
-		if (sign != ab.CrossProduct(ap) > 0)
+		if (sign != (ab.CrossProduct(ap) > 0))
 		{
 			return false;
 		}
@@ -132,8 +132,8 @@ std::pair<Vector2, Vector2> Center::GetBoundingBox()
 
 void Center::SortCorners()
 {
-	Corner* item;
-	int hole;
+	Corner* item = nullptr;
+	int hole = 0;
 
 	for (int i = 1; i < m_corners.size(); ++i)
 	{
@@ -207,35 +207,35 @@ bool Edge::Flip()
 	m_d0->RemoveCorner(m_v0);
 	m_d1->RemoveCorner(m_v1);
 
-	center0->m_corners.emplace_back(m_v1);
-	center1->m_corners.emplace_back(m_v0);
+	center0->m_corners.push_back(m_v1);
+	center1->m_corners.push_back(m_v0);
 
-	center0->m_edges.emplace_back(this);
-	center1->m_edges.emplace_back(this);
+	center0->m_edges.push_back(this);
+	center1->m_edges.push_back(this);
 
 	m_v0->m_centers.clear();
 	m_v0->m_edges.clear();
 
-	m_v0->m_centers.emplace_back(center0);
-	m_v0->m_centers.emplace_back(center1);
-	m_v0->m_centers.emplace_back(m_d1);
+	m_v0->m_centers.push_back(center0);
+	m_v0->m_centers.push_back(center1);
+	m_v0->m_centers.push_back(m_d1);
 	m_v0->m_position = m_v0->CalculateCircumstanceCenter();
 
-	m_v0->m_edges.emplace_back(this);
-	m_v0->m_edges.emplace_back(e01);
-	m_v0->m_edges.emplace_back(e11);
+	m_v0->m_edges.push_back(this);
+	m_v0->m_edges.push_back(e01);
+	m_v0->m_edges.push_back(e11);
 
 	m_v1->m_centers.clear();
 	m_v1->m_edges.clear();
 
-	m_v1->m_centers.emplace_back(center0);
-	m_v1->m_centers.emplace_back(m_d0);
-	m_v1->m_centers.emplace_back(center1);
+	m_v1->m_centers.push_back(center0);
+	m_v1->m_centers.push_back(m_d0);
+	m_v1->m_centers.push_back(center1);
 	m_v1->m_position = m_v1->CalculateCircumstanceCenter();
 
-	m_v1->m_edges.emplace_back(this);
-	m_v1->m_edges.emplace_back(e00);
-	m_v1->m_edges.emplace_back(e10);
+	m_v1->m_edges.push_back(this);
+	m_v1->m_edges.push_back(e00);
+	m_v1->m_edges.push_back(e10);
 
 	m_d0 = center0;
 	m_d1 = center1;
@@ -414,8 +414,8 @@ Edge* Corner::GetEdgeConnecting(Center* c0, Center* c1)
 {
 	for (auto edge : m_edges)
 	{
-		if (edge->m_d0 == c0 && edge->m_d1 == c1 ||
-			edge->m_d1 == c0 && edge->m_d0 == c1)
+		if ((edge->m_d0 == c0 && edge->m_d1 == c1) ||
+			(edge->m_d1 == c0 && edge->m_d0 == c1))
 		{
 			return edge;
 		}
