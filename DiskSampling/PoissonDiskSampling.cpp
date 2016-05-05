@@ -21,7 +21,7 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	Point firstPoint(gen() / m_width, gen() / m_height);
+	Point firstPoint(gen() % m_width, gen() % m_height);
 
 	m_process.push_back(firstPoint);
 	m_sample.push_back(std::make_pair(firstPoint.x, firstPoint.y));
