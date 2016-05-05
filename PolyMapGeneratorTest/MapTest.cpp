@@ -8,7 +8,7 @@
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-const int POINT_SIZE = 2;
+const int POINT_SIZE = 0;
 const int LINE_SIZE = 1;
 
 struct InfoShown
@@ -174,7 +174,7 @@ int main()
 		if (!centers.empty())
 		{
 			timer.restart();
-			
+
 			for (auto center : centers)
 			{
 				DrawCenter(center, app);
