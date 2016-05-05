@@ -80,6 +80,10 @@
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
     </Bscmake>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Libraries\Noise\lib;$(SolutionDir)\Libraries\PoissionDiskSampling\lib;$(SolutionDir)\Libraries\PolygonalMapGenerator\lib;$(SolutionDir)\Libraries\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libnoise.lib;DiskSampling.lib;PolyMapGenerator.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
