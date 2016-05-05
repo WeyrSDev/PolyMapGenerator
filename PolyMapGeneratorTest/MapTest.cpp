@@ -288,5 +288,51 @@ void DrawCorner(Corner* c, sf::RenderWindow* window)
 
 void DrawCenter(Center* c, sf::RenderWindow* window)
 {
-	
+	sf::ConvexShape polygon;
+	polygon.setPointCount(c->m_corners.size());
+	for (int i = 0; i < c->m_corners.size(); ++i)
+	{
+		Vector2 aux = c->m_corners[i]->m_position;
+		polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+	}
+
+	switch (VideoMode)
+	{
+	case InfoShown::Name::Biomes:
+		polygon.setFillColor(BIOME_COLOR[static_cast<int>(c->m_biome)]);
+		break;
+	case InfoShown::Name::Elevation:
+		if (c->m_ocean)
+		{
+			polygon.setFillColor(WATER_COLOR);
+		}
+		else if (c->m_water)
+		{
+			polygon.setFillColor(LAKE_COLOR);
+		}
+		else
+		{
+			polygon.setFillColor(ELEVATION_COLOR[static_cast<int>(floor(c->m_elevation * 10))]);
+		}
+		break;
+	case InfoShown::Name::Moisture:
+		if (c->m_ocean)
+		{
+			polygon.setFillColor(WATER_COLOR);
+		}
+		else if (c->m_water)
+		{
+			polygon.setFillColor(LAKE_COLOR);
+		}
+		else
+		{
+			polygon.setFillColor(MOISTURE_COLOR[static_cast<int>(floor(c->m_moisture * 10))]);
+		}
+		break;
+	default:
+		break;
+	}
+
+	polygon.setPosition(0, 0);
+	window->draw(polygon);
 }
