@@ -238,7 +238,34 @@ void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow 
 
 void DrawEdge(Edge* e, sf::RenderWindow* window)
 {
-	
+	Vector2 v0;
+	if (e->m_v0 == nullptr)
+	{
+		v0 = (e->m_d0->m_position + e->m_d1->m_position) / 2;
+	}
+	else
+	{
+		v0 = e->m_v0->m_position;
+	}
+
+	Vector2 v1;
+	if (e->m_v1 == nullptr)
+	{
+		v1 = (e->m_d0->m_position + e->m_d1->m_position) / 2;
+	}
+	else
+	{
+		v1 = e->m_v1->m_position;
+	}
+
+	if (e->m_riverVolume > 0)
+	{
+		DrawLine(v0, v1, 1 + sqrt(e->m_riverVolume), RIVER_COLOR, window);
+	}
+	else
+	{
+		DrawLine(v0, v1, 1, VORONOI_COLOR, window);
+	}
 }
 
 void DrawCorner(Corner* c, sf::RenderWindow* window)
