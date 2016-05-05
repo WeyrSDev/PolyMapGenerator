@@ -85,3 +85,19 @@ void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow 
 void DrawEdge(Edge* e, sf::RenderWindow* window);
 void DrawCorner(Corner* c, sf::RenderWindow* window);
 void DrawCenter(Center* c, sf::RenderWindow* window);
+
+int main()
+{
+	sf::Clock timer;
+
+	VideoMode = InfoShown::Name::Biomes;
+
+	sf::RenderWindow* app = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT, 32), "Map Generator");
+	app->setFramerateLimit(60);
+
+	Map map(WIDTH, HEIGHT, 10, "");
+
+	timer.restart();
+	map.Generate();
+	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << std::endl;
+}
