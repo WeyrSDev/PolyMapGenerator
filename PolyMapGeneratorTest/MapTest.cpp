@@ -172,5 +172,54 @@ int main()
 				}
 			}
 		}
+
+		app->clear(sf::Color::White);
+
+		if (!centers.empty())
+		{
+			timer.restart();
+			
+			for (auto center : centers)
+			{
+				DrawCenter(center, app);
+			}
+
+			std::cout << timer.getElapsedTime().asMicroseconds() << std::endl;
+		}
+
+		if (!edges.empty())
+		{
+			for (auto edge : edges)
+			{
+				DrawEdge(edge, app);
+			}
+		}
+
+		if (!corners.empty())
+		{
+			for (auto corner : corners)
+			{
+				DrawCorner(corner, app);
+			}
+		}
+
+		if (selectedCenter != nullptr)
+		{
+			sf::ConvexShape polygon;
+			polygon.setPointCount(selectedCenter->m_corners.size());
+			for (int i = 0; i < selectedCenter->m_corners.size(); ++i)
+			{
+				Vector2 aux = selectedCenter->m_corners[i]->m_position;
+				polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+			}
+			polygon.setFillColor(sf::Color::Black);
+			polygon.setPosition(0, 0);
+			polygons.push_back(polygon);
+			app->draw(polygon);
+		}
+
+		app->display();
 	}
+
+	return 0;
 }
