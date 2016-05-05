@@ -86,7 +86,6 @@ void Map::Generate()
 	GenerateLand();
 	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << " ms." << std::endl;
 
-
 	// Elevation
 	std::cout << "Coast assignment: ";
 	timer.restart();

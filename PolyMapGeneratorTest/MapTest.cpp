@@ -78,7 +78,7 @@ const sf::Color BIOME_COLOR[] =
 	sf::Color(sf::Uint8(178), sf::Uint8(166), sf::Uint8(148))
 };
 
-void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow *window);
+void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow* window);
 void DrawEdge(Edge* e, sf::RenderWindow* window);
 void DrawCorner(Corner* c, sf::RenderWindow* window);
 void DrawCenter(Center* c, sf::RenderWindow* window);
@@ -89,10 +89,10 @@ int main()
 
 	VideoMode = InfoShown::Name::Biomes;
 
-	sf::RenderWindow* app = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT, 32), "Map Generator");
+	sf::RenderWindow* app = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT, 32), "Map Generator", sf::Style::Default, sf::ContextSettings(24, 8, 8, 3, 3));
 	app->setFramerateLimit(60);
 
-	Map map(WIDTH, HEIGHT, 10, "");
+	Map map(WIDTH, HEIGHT, 30, "");
 
 	timer.restart();
 	map.Generate();
@@ -118,7 +118,6 @@ int main()
 		polygon.setPosition(0, 0);
 		polygons.push_back(polygon);
 	}
-
 
 	Center* selectedCenter = nullptr;
 
@@ -164,7 +163,6 @@ int main()
 				{
 					timer.restart();
 					selectedCenter = map.GetCenterAt(Vector2(event.mouseButton.x, event.mouseButton.y));
-					std::cout << timer.getElapsedTime().asMicroseconds() << std::endl;
 				}
 			}
 		}
@@ -179,8 +177,6 @@ int main()
 			{
 				DrawCenter(center, app);
 			}
-
-			std::cout << timer.getElapsedTime().asMicroseconds() << std::endl;
 		}
 
 		if (!edges.empty())
@@ -207,6 +203,7 @@ int main()
 			{
 				Vector2 aux = selectedCenter->m_corners[i]->m_position;
 				polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+				std::cout << aux.x << " " << aux.y << std::endl;
 			}
 			polygon.setFillColor(sf::Color::Black);
 			polygon.setPosition(0, 0);
@@ -220,7 +217,7 @@ int main()
 	return 0;
 }
 
-void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow *window)
+void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow* window)
 {
 	Vector2 lineVector(a, b);
 	sf::RectangleShape line(sf::Vector2f(lineVector.Length(), width));
@@ -295,7 +292,7 @@ void DrawCenter(Center* c, sf::RenderWindow* window)
 	switch (VideoMode)
 	{
 	case InfoShown::Name::Biomes:
-		polygon.setFillColor(BIOME_COLOR[static_cast<int>(c->m_biome)]);
+ 		polygon.setFillColor(BIOME_COLOR[static_cast<int>(c->m_biome)]);
 		break;
 	case InfoShown::Name::Elevation:
 		if (c->m_ocean)
