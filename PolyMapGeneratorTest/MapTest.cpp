@@ -270,7 +270,20 @@ void DrawEdge(Edge* e, sf::RenderWindow* window)
 
 void DrawCorner(Corner* c, sf::RenderWindow* window)
 {
-	
+	sf::CircleShape point;
+
+	if (c->m_water)
+	{
+		point.setFillColor(WATER_COLOR);
+	}
+	else
+	{
+		point.setFillColor(LAND_COLOR);
+	}
+
+	point.setPosition(c->m_position.x - POINT_SIZE, c->m_position.y - POINT_SIZE);
+	point.setRadius(POINT_SIZE);
+	window->draw(point);
 }
 
 void DrawCenter(Center* c, sf::RenderWindow* window)
