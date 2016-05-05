@@ -98,7 +98,6 @@ int main()
 	map.Generate();
 	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << std::endl;
 
-
 	std::vector<Edge*> edges = map.GetEdges();
 	std::vector<Corner*> corners = map.GetCorners();
 	std::vector<Center*> centers = map.GetCenters();

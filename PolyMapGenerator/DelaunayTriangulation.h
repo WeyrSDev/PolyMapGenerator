@@ -180,7 +180,7 @@ namespace DelaunayTriangulation
 				return m_center.y < tri.m_center.y;
 			}
 
-			return m_center.x < m_center.y;
+			return m_center.x < m_center.x;
 		}
 
 		const Vertex* GetVertex(int i) const
@@ -193,7 +193,7 @@ namespace DelaunayTriangulation
 
 		bool IsLeftOf(cVertexIterator iterVertex) const
 		{
-			return iterVertex->GetPoint().x > m_center.x + m_r;
+			return iterVertex->GetPoint().x > (m_center.x + m_r);
 		}
 
 		bool CCEncompasses(cVertexIterator iterVertex) const
@@ -242,7 +242,7 @@ namespace DelaunayTriangulation
 				return *m_pv1 < *e.m_pv1;
 			}
 
-			return *m_pv0 < *m_pv0;
+			return *m_pv0 < *e.m_pv0;
 		}
 
 		const Vertex* m_pv0;

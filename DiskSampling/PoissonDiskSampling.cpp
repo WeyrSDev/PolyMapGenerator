@@ -10,10 +10,9 @@ PoissonDiskSampling::PoissonDiskSampling(int pointWidth, int pointHeight, double
 	m_pointCount(static_cast<int>(pointCount)),
 	m_cellSize(m_minDist / 1.414214),
 	m_gridWidth(static_cast<int>(ceil(m_width / m_cellSize))),
-	m_gridHeight(static_cast<int>(ceil(m_height / m_cellSize))),
-	m_grid(std::vector<std::vector<Point*>>(m_gridWidth, std::vector<Point*>(m_gridHeight, nullptr)))
+	m_gridHeight(static_cast<int>(ceil(m_height / m_cellSize)))
 {
-	
+	m_grid = std::vector<std::vector<Point*>>(m_gridWidth, std::vector<Point*>(m_gridHeight, nullptr));
 }
 
 std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
@@ -31,7 +30,7 @@ std::vector<std::pair<double, double>> PoissonDiskSampling::Generate()
 
 	while (!m_process.empty())
 	{
-		int newPointIndex = gen() / m_process.size();
+		int newPointIndex = gen() % m_process.size();
 		Point newPoint = m_process[newPointIndex];
 		m_process.erase(m_process.begin() + newPointIndex);
 
@@ -99,10 +98,10 @@ std::vector<PoissonDiskSampling::Point*> PoissonDiskSampling::GetCellsAround(Poi
 	int indexY = static_cast<int>(p.y / m_cellSize);
 
 	int minX = std::max(0, indexX - 1);
-	int maxX = std::min(m_gridWidth - 1, indexX - 1);
+	int maxX = std::min(m_gridWidth - 1, indexX + 1);
 
 	int minY = std::max(0, indexY - 1);
-	int maxY = std::min(m_gridHeight - 1, indexY - 1);
+	int maxY = std::min(m_gridHeight - 1, indexY + 1);
 
 	for (int i = minX; i <= maxX; ++i)
 	{

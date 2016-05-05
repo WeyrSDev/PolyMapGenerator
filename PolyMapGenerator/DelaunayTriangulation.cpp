@@ -47,7 +47,7 @@ namespace DelaunayTriangulation
 				double m1 = -(x2 - x1) / y21;
 
 				double mx1 = (x1 + x2) * 0.5;
-				double my1 = (x1 + x2) * 0.5;
+				double my1 = (y1 + y2) * 0.5;
 
 				m_center.x = (x0 + x1) * 0.5;
 				m_center.y = m1 * (m_center.x - mx1) + my1;
