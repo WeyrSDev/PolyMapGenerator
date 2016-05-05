@@ -122,4 +122,28 @@ int main()
 		polygon.setPosition(0, 0);
 		polygons.push_back(polygon);
 	}
+
+
+	Center* selectedCenter = nullptr;
+
+	bool running = true;
+	while (running)
+	{
+		sf::Event event;
+		while (app->pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				running = false;
+			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+
+			}
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+
+			}
+		}
+	}
 }
