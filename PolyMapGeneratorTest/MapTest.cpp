@@ -223,3 +223,30 @@ int main()
 
 	return 0;
 }
+
+void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow *window)
+{
+	Vector2 lineVector(a, b);
+	sf::RectangleShape line(sf::Vector2f(lineVector.Length(), width));
+
+	line.setFillColor(c);
+	line.setRotation(lineVector.GetAngleByDegree());
+	line.setPosition(a.x, a.y);
+
+	window->draw(line);
+}
+
+void DrawEdge(Edge* e, sf::RenderWindow* window)
+{
+	
+}
+
+void DrawCorner(Corner* c, sf::RenderWindow* window)
+{
+	
+}
+
+void DrawCenter(Center* c, sf::RenderWindow* window)
+{
+	
+}
