@@ -100,4 +100,26 @@ int main()
 	timer.restart();
 	map.Generate();
 	std::cout << timer.getElapsedTime().asMicroseconds() / 1000.0 << std::endl;
+
+
+	std::vector<Edge*> edges = map.GetEdges();
+	std::vector<Corner*> corners = map.GetCorners();
+	std::vector<Center*> centers = map.GetCenters();
+
+	std::vector<sf::ConvexShape> polygons;
+	for (auto center : centers)
+	{
+		sf::ConvexShape polygon;
+		polygon.setPointCount(center->m_corners.size());
+
+		for (int i = 0; i < center->m_corners.size(); ++i)
+		{
+			Vector2 aux = center->m_corners[i]->m_position;
+			polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+		}
+
+		polygon.setFillColor(BIOME_COLOR[static_cast<int>(center->m_biome)]);
+		polygon.setPosition(0, 0);
+		polygons.push_back(polygon);
+	}
 }
