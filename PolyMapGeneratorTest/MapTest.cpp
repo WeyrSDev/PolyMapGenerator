@@ -138,11 +138,38 @@ int main()
 			}
 			else if (event.type == sf::Event::KeyPressed)
 			{
+				sf::Image screen;
 
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Escape:
+					running = false;
+					break;
+				case sf::Keyboard::M:
+					VideoMode = InfoShown::Name::Moisture;
+					break;
+				case sf::Keyboard::B:
+					VideoMode = InfoShown::Name::Biomes;
+					break;
+				case sf::Keyboard::E:
+					VideoMode = InfoShown::Name::Elevation;
+					break;
+				case sf::Keyboard::F12:
+					screen = app->capture();
+					screen.saveToFile("screenshot.jpg");
+					break;
+				default:
+					break;
+				}
 			}
 			else if (event.type == sf::Event::MouseButtonPressed)
 			{
-
+				if (event.mouseButton.button == sf::Mouse::Button::Left)
+				{
+					timer.restart();
+					selectedCenter = map.GetCenterAt(Vector2(event.mouseButton.x, event.mouseButton.y));
+					std::cout << timer.getElapsedTime().asMicroseconds() << std::endl;
+				}
 			}
 		}
 	}
