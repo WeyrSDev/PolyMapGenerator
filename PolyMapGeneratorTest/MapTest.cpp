@@ -83,6 +83,39 @@ void DrawEdge(Edge* e, sf::RenderWindow* window);
 void DrawCorner(Corner* c, sf::RenderWindow* window);
 void DrawCenter(Center* c, sf::RenderWindow* window);
 
+double cross(const Vector2& O, const Vector2& A, const Vector2& B)
+{
+	return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
+}
+
+void convex_hull(std::vector<Corner*>& P)
+{
+	int n = P.size(), k = 0;
+	std::vector<Corner*> H(2 * n);
+
+	// Sort points lexicographically
+	sort(P.begin(), P.end(), [](Corner* c1, Corner* c2)
+	{
+		return c1->m_position.x < c2->m_position.x || (c1->m_position.x == c2->m_position.x && c1->m_position.y < c2->m_position.y);
+	});
+
+	// Build lower hull
+	for (int i = 0; i < n; ++i) {
+		while (k >= 2 && cross(H[k - 2]->m_position, H[k - 1]->m_position, P[i]->m_position) <= 0) k--;
+		H[k++] = P[i];
+	}
+
+	// Build upper hull
+	for (int i = n - 2, t = k + 1; i >= 0; i--) {
+		while (k >= t && cross(H[k - 2]->m_position, H[k - 1]->m_position, P[i]->m_position) <= 0) k--;
+		H[k++] = P[i];
+	}
+
+	H.resize(k - 1);
+
+	P = H;
+}
+
 int main()
 {
 	sf::Clock timer;
@@ -92,7 +125,7 @@ int main()
 	sf::RenderWindow* app = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT, 32), "Map Generator", sf::Style::Default, sf::ContextSettings(24, 8, 8, 3, 3));
 	app->setFramerateLimit(60);
 
-	Map map(WIDTH, HEIGHT, 30, "");
+	Map map(WIDTH, HEIGHT, 10, "");
 
 	timer.restart();
 	map.Generate();
@@ -199,6 +232,9 @@ int main()
 		{
 			sf::ConvexShape polygon;
 			polygon.setPointCount(selectedCenter->m_corners.size());
+
+			convex_hull(selectedCenter->m_corners);
+
 			for (int i = 0; i < selectedCenter->m_corners.size(); ++i)
 			{
 				Vector2 aux = selectedCenter->m_corners[i]->m_position;
@@ -277,40 +313,6 @@ void DrawCorner(Corner* c, sf::RenderWindow* window)
 	point.setPosition(c->m_position.x - POINT_SIZE, c->m_position.y - POINT_SIZE);
 	point.setRadius(POINT_SIZE);
 	window->draw(point);
-}
-
-double cross(const Vector2& O, const Vector2& A, const Vector2& B)
-{
-	return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
-}
-
-
-void convex_hull(std::vector<Corner*> P)
-{
-	int n = P.size(), k = 0;
-	std::vector<Corner*> H(2 * n);
-
-	// Sort points lexicographically
-	sort(P.begin(), P.end(), [](Corner* c1, Corner* c2)
-	{
-		return c1->m_position.x < c2->m_position.x || (c1->m_position.x == c2->m_position.x && c1->m_position.y < c2->m_position.y);
-	} );
-
-	// Build lower hull
-	for (int i = 0; i < n; ++i) {
-		while (k >= 2 && cross(H[k - 2]->m_position, H[k - 1]->m_position, P[i]->m_position) <= 0) k--;
-		H[k++] = P[i];
-	}
-
-	// Build upper hull
-	for (int i = n - 2, t = k + 1; i >= 0; i--) {
-		while (k >= t && cross(H[k - 2]->m_position, H[k - 1]->m_position, P[i]->m_position) <= 0) k--;
-		H[k++] = P[i];
-	}
-
-	H.resize(k - 1);
-	
-	P = H;
 }
 
 void DrawCenter(Center* c, sf::RenderWindow* window)
