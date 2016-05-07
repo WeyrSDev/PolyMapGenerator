@@ -127,7 +127,6 @@
     <ClInclude Include="Structure.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConvexHull.cpp" />
     <ClCompile Include="DelaunayTriangulation.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Math\LineEquation.cpp" />
