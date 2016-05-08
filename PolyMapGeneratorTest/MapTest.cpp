@@ -207,8 +207,8 @@ int main()
 			{
 				Vector2 aux = selectedCenter->m_corners[i]->m_position;
 				polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
-				std::cout << aux.x << " " << aux.y << std::endl;
 			}
+
 			polygon.setFillColor(sf::Color::Black);
 			polygon.setPosition(0, 0);
 			polygons.push_back(polygon);
