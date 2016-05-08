@@ -13,7 +13,7 @@ namespace ConvexHull
 		return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
 	}
 
-	inline std::vector<Corner*> CalculateConvexHull(std::vector<Corner*> P)
+	inline void CalculateConvexHull(std::vector<Corner*>& P)
 	{
 		int n = P.size(), k = 0;
 		std::vector<Corner*> H(2 * n);
@@ -49,7 +49,7 @@ namespace ConvexHull
 
 		H.resize(k - 1);
 
-		return H;
+		P = H;
 	}
 };
 
