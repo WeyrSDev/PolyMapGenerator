@@ -4,6 +4,7 @@
 
 #include "Map.h"
 #include "Structure.h"
+#include "ConvexHull.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -200,7 +201,7 @@ int main()
 			sf::ConvexShape polygon;
 			polygon.setPointCount(selectedCenter->m_corners.size());
 
-			convex_hull(selectedCenter->m_corners);
+			ConvexHull::CalculateConvexHull(selectedCenter->m_corners);
 
 			for (int i = 0; i < selectedCenter->m_corners.size(); ++i)
 			{
@@ -287,7 +288,7 @@ void DrawCenter(Center* c, sf::RenderWindow* window)
 	sf::ConvexShape polygon;
 	polygon.setPointCount(c->m_corners.size());
 
-	convex_hull(c->m_corners);
+	ConvexHull::CalculateConvexHull(c->m_corners);
 
 	for (int i = 0; i < c->m_corners.size(); ++i)
 	{
