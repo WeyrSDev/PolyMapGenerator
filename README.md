@@ -2,6 +2,8 @@
 
 ============
 
+TBA
+
 Generation of procedural maps. The main idea behind the algorithm is taken from [Amit's Polygonal Map Generation for Games](http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/).
 
 It has the following steps:
