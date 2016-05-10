@@ -109,10 +109,10 @@ int main()
 		sf::ConvexShape polygon;
 		polygon.setPointCount(center->m_corners.size());
 
-		for (int i = 0; i < center->m_corners.size(); ++i)
+		for (size_t i = 0; i < center->m_corners.size(); ++i)
 		{
 			Vector2 aux = center->m_corners[i]->m_position;
-			polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+			polygon.setPoint(i, sf::Vector2f(static_cast<float>(aux.x), static_cast<float>(aux.y)));
 		}
 
 		polygon.setFillColor(BIOME_COLOR[static_cast<int>(center->m_biome)]);
@@ -203,10 +203,10 @@ int main()
 
 			ConvexHull::CalculateConvexHull(selectedCenter->m_corners);
 
-			for (int i = 0; i < selectedCenter->m_corners.size(); ++i)
+			for (size_t i = 0; i < selectedCenter->m_corners.size(); ++i)
 			{
 				Vector2 aux = selectedCenter->m_corners[i]->m_position;
-				polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+				polygon.setPoint(i, sf::Vector2f(static_cast<float>(aux.x), static_cast<float>(aux.y)));
 			}
 
 			polygon.setFillColor(sf::Color::Black);
@@ -224,11 +224,11 @@ int main()
 void DrawLine(Vector2 a, Vector2 b, double width, sf::Color c, sf::RenderWindow* window)
 {
 	Vector2 lineVector(a, b);
-	sf::RectangleShape line(sf::Vector2f(lineVector.Length(), width));
+	sf::RectangleShape line(sf::Vector2f(static_cast<float>(lineVector.Length()), static_cast<float>(width)));
 
 	line.setFillColor(c);
-	line.setRotation(lineVector.GetAngleByDegree());
-	line.setPosition(a.x, a.y);
+	line.setRotation(static_cast<float>(lineVector.GetAngleByDegree()));
+	line.setPosition(static_cast<float>(a.x), static_cast<float>(a.y));
 
 	window->draw(line);
 }
@@ -278,8 +278,8 @@ void DrawCorner(Corner* c, sf::RenderWindow* window)
 		point.setFillColor(LAND_COLOR);
 	}
 
-	point.setPosition(c->m_position.x - POINT_SIZE, c->m_position.y - POINT_SIZE);
-	point.setRadius(POINT_SIZE);
+	point.setPosition(static_cast<float>(c->m_position.x - POINT_SIZE), static_cast<float>(c->m_position.y - POINT_SIZE));
+	point.setRadius(static_cast<float>(POINT_SIZE));
 	window->draw(point);
 }
 
@@ -290,10 +290,10 @@ void DrawCenter(Center* c, sf::RenderWindow* window)
 
 	ConvexHull::CalculateConvexHull(c->m_corners);
 
-	for (int i = 0; i < c->m_corners.size(); ++i)
+	for (size_t i = 0; i < c->m_corners.size(); ++i)
 	{
 		Vector2 aux = c->m_corners[i]->m_position;
-		polygon.setPoint(i, sf::Vector2f(aux.x, aux.y));
+		polygon.setPoint(i, sf::Vector2f(static_cast<float>(aux.x), static_cast<float>(aux.y)));
 	}
 
 	switch (VideoMode)
