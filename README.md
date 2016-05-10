@@ -47,8 +47,6 @@ The main code of this repository is based on [Rellikiox's Map Generator](https:/
 
 <img src="https://github.com/utilForever/PolyMapGenerator/blob/master/Screenshots/Elevation%20-%20Version%201.jpg"/>
 
-## Code Map
-
 ## Dependencies
 
 * libnoise
