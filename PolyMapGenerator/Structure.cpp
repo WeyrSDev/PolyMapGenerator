@@ -135,7 +135,7 @@ void Center::SortCorners()
 	Corner* item = nullptr;
 	int hole = 0;
 
-	for (int i = 1; i < m_corners.size(); ++i)
+	for (size_t i = 1; i < m_corners.size(); ++i)
 	{
 		item = m_corners[i];
 		hole = i;

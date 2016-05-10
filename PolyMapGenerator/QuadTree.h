@@ -173,7 +173,7 @@ public:
 
 		std::vector<T> elements;
 
-		for (int i = 0 ; i < currentLeaf->m_elements.size(); ++i)
+		for (size_t i = 0 ; i < currentLeaf->m_elements.size(); ++i)
 		{
 			if (currentLeaf->m_elementsRegions[i].IsContain(pos))
 			{

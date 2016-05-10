@@ -65,7 +65,7 @@ Map::Map(int width, int height, double pointSpread, std::string seed) :
 	m_noiseMap(nullptr), m_seed(seed), m_centersQuadTree(AABB(Vector2(width / 2, height / 2), Vector2(width / 2, height / 2)), 1)
 {
 	double approxPointCount = (2 * m_mapWidth * m_mapHeight) / (3.1416 * m_pointSpread * m_pointSpread);
-	int maxTreeDepth = floor((log(approxPointCount) / log(4)) + 0.5);
+	int maxTreeDepth = static_cast<int>(floor((log(approxPointCount) / log(4)) + 0.5));
 	QuadTree<Center*>::SetMaxDepth(maxTreeDepth);
 
 	m_seed = seed != "" ? seed : CreateSeed(20);
@@ -363,9 +363,9 @@ void Map::AssignOceanCoastLand()
 			adjLand += static_cast<int>(!p->m_water);
 		}
 
-		c->m_ocean = adjOcean == c->m_centers.size();
+		c->m_ocean = static_cast<size_t>(adjOcean) == c->m_centers.size();
 		c->m_coast = adjLand > 0 && adjOcean > 0;
-		c->m_water = c->m_border || (adjLand != c->m_centers.size() && !c->m_coast);
+		c->m_water = c->m_border || (static_cast<size_t>(adjLand) != c->m_centers.size() && !c->m_coast);
 	}
 }
 
@@ -376,7 +376,7 @@ void Map::RedistributeElevations()
 
 	sort(locations.begin(), locations.end(), &Corner::SortByElevation);
 
-	for (int i = 0; i < locations.size(); ++i)
+	for (size_t i = 0; i < locations.size(); ++i)
 	{
 		double y = static_cast<double>(i) / (locations.size() - 1);
 		double x = sqrt(SCALE_FACTOR) - sqrt(SCALE_FACTOR * (1 - y));
@@ -453,7 +453,7 @@ void Map::RedistributeMoisture()
 
 	sort(locations.begin(), locations.end(), &Corner::SortByMoisture);
 
-	for (int i = 0; i < locations.size(); ++i)
+	for (size_t i = 0; i < locations.size(); ++i)
 	{
 		locations[i]->m_moisture = static_cast<double>(i) / (locations.size() - 1);
 	}
@@ -871,9 +871,9 @@ unsigned int Map::HashString(std::string seed)
 {
 	unsigned int hash = 0;
 
-	for (int i = 0; i < seed.length(); ++i)
+	for (size_t i = 0; i < seed.length(); ++i)
 	{
-		hash += static_cast<int>(seed[i]) * pow(2, i);
+		hash += static_cast<unsigned int>(static_cast<int>(seed[i]) * pow(2, i));
 	}
 
 	return hash % UINT_MAX;
