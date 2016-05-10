@@ -31,6 +31,7 @@ The main code of this repository is based on [Rellikiox's Map Generator](https:/
 * Calculate the elevation of each point as its distance to the sea. Normalize all the heights.
 * Place river sources in random spots and let them flow downwards.
 * Calculate the moisture od each point given its distance to the sea (less moisture) and rivers (more moisture).
+* Using Conex Hull algorithm determine the order of points (for sf::ConvexShape). 
 
 ## Screenshots
 
