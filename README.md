@@ -28,6 +28,18 @@ The main code of this repository is based on [Rellikiox's Map Generator](https:/
 #### Part 2
 
 * Add parameters to control map generation (e.g. the number of islands, maximum heights of map, and so on).
+  * Seed
+  * The number of points
+  * The size of map
+  * The number of islands
+  * The size of island
+  * The number of rivers
+  * The size of river
+  * Noise
+  * Biome ratio
+  * Land ratio
+  * Output data options
+  * Etc
 * Create console tool to control these parameters.
 
 ### Done
