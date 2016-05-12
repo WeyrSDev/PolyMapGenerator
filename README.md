@@ -18,6 +18,7 @@ The main code of this repository is based on [Rellikiox's Map Generator](https:/
 
 * Using OpenGL or DirectX to represent 3D terrain (consider biomes, moistures, and elevations).
 * Implement math library for Vector3 to structure 3-dimensional points.
+* Create graphics tool to control parameters.
 
 #### Part 4
 
