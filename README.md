@@ -14,24 +14,34 @@ The main code of this repository is based on [Rellikiox's Map Generator](https:/
 
 ### To-do
 
+#### Part 3
+
 * Using OpenGL or DirectX to represent 3D terrain (consider biomes, moistures, and elevations).
 * Implement math library for Vector3 to structure 3-dimensional points.
-* Add parameters to control map generation (e.g. the number of islands, maximum heights of map, and so on).
+
+#### Part 4
+
 * Add polygonal map generator for basement (e.g. lava, mineral, cave, ground water, and so on).
 
 ### Doing
 
-* Code refactoring - No warning messages at warning level 4. 
+#### Part 2
+
+* Add parameters to control map generation (e.g. the number of islands, maximum heights of map, and so on).
+* Create console tool to control these parameters.
 
 ### Done
 
+#### Part 1
+
 * Place a number of random but uniformly distributed points (using Poisson Disk Sampling).
-* Calculate the Voronoi diagram of the points.
+* Calculate the Voronoi diagram of the points (using Lloyd's algorithm).
 * Using Perlin Noise determine which cells are land and which are water.
 * Calculate the elevation of each point as its distance to the sea. Normalize all the heights.
 * Place river sources in random spots and let them flow downwards.
 * Calculate the moisture od each point given its distance to the sea (less moisture) and rivers (more moisture).
-* Using Conex Hull algorithm determine the order of points (for sf::ConvexShape). 
+* Using Conex Hull algorithm determine the order of points (for sf::ConvexShape).
+* Code refactoring - No warning messages at warning level 4.
 
 ## Screenshots
 
